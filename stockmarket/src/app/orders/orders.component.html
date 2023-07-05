@@ -1,0 +1,22 @@
+<div class="content" role="main">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Stock</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let order of orders">
+                <td>{{ order.name }}</td>
+                <td>{{ order.stock}}</td>
+                <td>{{ order.price }}</td>
+                <td>{{ order.quantity }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<button routerLink="/">View Stocks</button>
+<router-outlet></router-outlet>
