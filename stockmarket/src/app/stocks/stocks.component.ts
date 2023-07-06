@@ -8,6 +8,8 @@ import { NgForm } from '@angular/forms';
 //   stockPrice: number;
 // }
 
+
+
 @Component({
   selector: 'app-stocks',
   templateUrl: './stocks.component.html',
@@ -37,7 +39,14 @@ export class StocksComponent {
   //   }
   //   return st;
   // }
-  
+
+  getStockPrice() {
+    const selectedStockObj = this.stocks.find(
+      (stock) => stock.name === this.selectedStock
+    );
+    return selectedStockObj ? selectedStockObj.price : 0;
+  }
+
   ngOnInit() {
     this.http.get<any[]>(`http://127.0.0.1:5000/`).subscribe(
       (stocks) => {
@@ -51,8 +60,11 @@ export class StocksComponent {
   }
 
   onsubmit(form: NgForm) {
-    console.log(form.value);
-    this.http.post<any[]>(`http://127.0.0.1:5000/`, form.value).subscribe(
+    const price = this.getStockPrice();
+    const formData = { ...form.value, price }; // Include the price in the form data
+    console.log(formData);
+    // console.log(form.value);
+    this.http.post<any[]>(`http://127.0.0.1:5000/`, formData).subscribe(
       (response) => {
         console.log(response);
       },

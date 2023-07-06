@@ -6,13 +6,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { OrdersComponent } from './orders/orders.component';
 import { StocksComponent } from './stocks/stocks.component';
 import { FormsModule } from '@angular/forms';
+// import { SocketsService } from './sockets.service';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     OrdersComponent,
-    StocksComponent,
+    StocksComponent  
   ],
   imports: [
     BrowserModule,

@@ -1,19 +1,52 @@
-from flask import Flask, request
+import time
+from flask import Flask, request, render_template
+from flask_socketio import SocketIO, send, emit
 from flask_cors import CORS
 import csv
 import json
+import random
+import threading
 
 app = Flask(__name__)
+# app.config['SECRET_KEY'] = 'secret!'
 CORS(app)
+socketio = SocketIO(app, cors_allowed_origins="*")
+
+
+# @socketio.on('stocks')
+# def get_stocks():
+#     stocks = []
+#     with open("D:\\EGID\\backend\\stocks.csv", "r") as f:
+#         reader = csv.DictReader(f)
+#         for row in reader:
+#             stocks.append(row)
+        
+#     send(json.dumps(stocks), json=True)
+
+
+def randomize_stock_prices(stocks: list):
+    socketio.emit('stocks', json.dumps(stocks))
+    while True:
+        for stock in stocks:
+            stock["price"] = random.randint(1, 100)
+        socketio.emit('stocks', json.dumps(stocks))
+        time.sleep(10)
+    
+    
 
 @app.route("/", methods=["GET"])
 def market():
     stocks = []
-    with open("./stocks.csv", "r") as f:
+    with open("D:\\EGID\\backend\\stocks.csv", "r") as f:
         reader = csv.DictReader(f)
         for row in reader:
             stocks.append(row)
-        
+
+    # socketio.emit('stocks', json.dumps(stocks))
+    
+    th = threading.Thread(target=randomize_stock_prices, args=(stocks,))
+    th.start()
+    
     return json.dumps(stocks)
 
 @app.route("/", methods=["POST"])
@@ -48,5 +81,4 @@ def orders():
 
 
 if __name__ == '__main__':
-    app.debug = True
-    app.run()
+    socketio.run(app, debug=True, allow_unsafe_werkzeug=True)
