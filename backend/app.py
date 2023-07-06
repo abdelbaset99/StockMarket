@@ -25,12 +25,12 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 
 
 def randomize_stock_prices(stocks: list):
-    socketio.emit('stocks', json.dumps(stocks))
+    socketio.emit('stocks', stocks)
     while True:
         for stock in stocks:
             stock["price"] = random.randint(1, 100)
-        socketio.emit('stocks', json.dumps(stocks))
-        time.sleep(10)
+        socketio.emit('stocks', stocks)
+        time.sleep(100)
     
     
 
@@ -56,7 +56,7 @@ def makeOrder():
     stock = request.json["stock"]
     price = request.json["price"]
     
-    with open("./orders.csv", "a") as f:       
+    with open("D:\\EGID\\backend\\orders.csv", "a") as f:       
         writer = csv.writer(f)
         writer.writerow([name, stock, price, quantity])
         
@@ -72,10 +72,12 @@ def makeOrder():
 @app.route("/orders", methods=["GET"])
 def orders():
     orders = []
-    with open("./orders.csv", "r") as f:
+    with open("D:\\EGID\\backend\\orders.csv", "r") as f:
         reader = csv.DictReader(f)
         for row in reader:
             orders.append(row)
+            
+    # print(orders)
             
     return json.dumps(orders, indent=2)
 

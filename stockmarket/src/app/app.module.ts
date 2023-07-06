@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { OrdersComponent } from './orders/orders.component';
 import { StocksComponent } from './stocks/stocks.component';
 import { FormsModule } from '@angular/forms';
+import { HomeComponent } from './home/home.component';
 // import { SocketsService } from './sockets.service';
 
 
@@ -13,7 +14,8 @@ import { FormsModule } from '@angular/forms';
   declarations: [
     AppComponent,
     OrdersComponent,
-    StocksComponent  
+    StocksComponent,
+    HomeComponent  
   ],
   imports: [
     BrowserModule,

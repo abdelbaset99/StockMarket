@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+import { Observable, Subscription } from 'rxjs';
+import { SocketsService } from '../sockets.service';
+
+
 
 // interface Stock {
 //   stockID: number;
@@ -23,8 +27,10 @@ export class StocksComponent {
   // selectedStock: Stock = { stockID: 0, stockName: '', stockPrice: 0 };
   selectedStock: string = '';
   stocks: any[] = [];
+  sub: Subscription = new Subscription();
+
   // stocks: Stock[] = [];
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private socketService: SocketsService) {}
 
   // stockify(starr: any[]) {
   //   let st: Stock[] = [];
@@ -48,17 +54,25 @@ export class StocksComponent {
   }
 
   ngOnInit() {
-    this.http.get<any[]>(`http://127.0.0.1:5000/`).subscribe(
-      (stocks) => {
-        // this.stocks = this.stockify(stocks);
-        this.stocks = stocks;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    this.getStocksData();
+    // this.http.get<any[]>(`http://127.0.0.1:5000/`).subscribe(
+    //   (stocks) => {
+    //     // this.stocks = this.stockify(stocks);
+    //     this.stocks = stocks;
+    //   },
+    //   (err) => {
+    //     console.log(err);
+    //   }
+    // );
   }
 
+  getStocksData(): void {
+    this.sub = this.socketService.getStocks().subscribe((stocks) => {
+      this.stocks = stocks;
+      // console.log("stock prices updated");
+    });
+  }
+  
   onsubmit(form: NgForm) {
     const price = this.getStockPrice();
     const formData = { ...form.value, price }; // Include the price in the form data

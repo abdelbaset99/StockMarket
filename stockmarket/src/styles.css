@@ -1,1 +1,90 @@
 /* You can add global styles to this file, and also import other style files */
+/* Set the font family and font size for the entire application */
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+/* Add a margin to the top and bottom of all headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Add a margin to the bottom of all paragraphs */
+p {
+    margin-bottom: 1rem;
+}
+
+/* Add a border to all images */
+img {
+    border: 1px solid #ccc;
+}
+
+/* Add styles to tables */
+.table-style {
+    border-collapse: collapse;
+    width: 100%;
+    /* margin: 0 auto */
+}
+
+.table-style th,
+.table-style td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.table-style th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+/* Add styles to buttons */
+.button-style {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 8px 4px;
+    cursor: pointer;
+}
+
+/* Add styles to dialog */
+.dialog-style {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+}
+
+/* Add padding after labels */
+.label-style {
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.select-style {
+    padding-left: 10px;
+    padding-right: 50px;
+}
+
+.input-style {
+    padding-left: 10px;
+    padding-right: 10px;
+}
