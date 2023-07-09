@@ -4,16 +4,18 @@
     <table class="table-style">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Name</th>
-                <th>Stock</th>
+                <th>StockID</th>
                 <th>Price</th>
                 <th>Quantity</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let order of orders">
+                <td>{{ order.id }}</td>
                 <td>{{ order.name }}</td>
-                <td>{{ order.stock}}</td>
+                <td>{{ order.stockid}}</td>
                 <td>{{ order.price }}</td>
                 <td>{{ order.quantity }}</td>
             </tr>

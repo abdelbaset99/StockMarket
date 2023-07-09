@@ -22,8 +22,9 @@ import { SocketsService } from '../sockets.service';
 export class StocksComponent {
   title = 'stocks';
   name: string = '';
-  price: number = 0;
+  // price: number = 0;
   quantity: number = 0;
+  // stockID: number = 0;
   // selectedStock: Stock = { stockID: 0, stockName: '', stockPrice: 0 };
   selectedStock: string = '';
   stocks: any[] = [];
@@ -53,6 +54,13 @@ export class StocksComponent {
     return selectedStockObj ? selectedStockObj.price : 0;
   }
 
+  getStockID() {
+    const selectedStockObj = this.stocks.find(
+      (stock) => stock.name === this.selectedStock
+    );
+    return selectedStockObj ? selectedStockObj.id : 0;
+  }
+
   ngOnInit() {
     this.getStocksData();
     // this.http.get<any[]>(`http://127.0.0.1:5000/`).subscribe(
@@ -74,8 +82,9 @@ export class StocksComponent {
   }
   
   onsubmit(form: NgForm) {
+    const stockid = this.getStockID();
     const price = this.getStockPrice();
-    const formData = { ...form.value, price }; // Include the price in the form data
+    const formData = { ...form.value, stockid, price }; // Include the price in the form data
     console.log(formData);
     // console.log(form.value);
     this.http.post<any[]>(`http://127.0.0.1:5000/`, formData).subscribe(
