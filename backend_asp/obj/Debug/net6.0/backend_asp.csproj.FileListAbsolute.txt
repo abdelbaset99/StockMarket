@@ -1,0 +1,8 @@
+D:\EGID\backend_asp\obj\Debug\net6.0\backend_asp.csproj.AssemblyReference.cache
+D:\EGID\backend_asp\obj\Debug\net6.0\backend_asp.GeneratedMSBuildEditorConfig.editorconfig
+D:\EGID\backend_asp\obj\Debug\net6.0\backend_asp.AssemblyInfoInputs.cache
+D:\EGID\backend_asp\obj\Debug\net6.0\backend_asp.AssemblyInfo.cs
+D:\EGID\backend_asp\obj\Debug\net6.0\backend_asp.csproj.CoreCompileInputs.cache
+D:\EGID\backend_asp\obj\Debug\net6.0\backend_asp.MvcApplicationPartsAssemblyInfo.cache
+D:\EGID\backend_asp\obj\Debug\net6.0\backend_asp.RazorAssemblyInfo.cache
+D:\EGID\backend_asp\obj\Debug\net6.0\backend_asp.RazorAssemblyInfo.cs
