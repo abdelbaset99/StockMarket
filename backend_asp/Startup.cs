@@ -8,6 +8,8 @@ using Microsoft.Extensions.Logging;
 using backend_asp.Models;
 using backend_asp.Services;
 using backend_asp.Data;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace backend_asp
 {
@@ -22,11 +24,22 @@ namespace backend_asp
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API Name", Version = "v1" });
+
+    // (Optional) Configure the comments path for the Swagger JSON and UI
+});
+
             services.AddControllers();
 
             services.AddDbContext<StockContext>();
 
+            services.AddDbContext<OrderContext>();
+
             services.AddScoped<StockService>();
+
+            services.AddScoped<OrderService>();
 
             services.AddCors(options =>
             {
@@ -47,6 +60,15 @@ namespace backend_asp
                 app.UseDeveloperExceptionPage();
                 app.UseHsts();
             }
+            app.UseSwagger();
+
+            // Enable middleware to serve Swagger UI (HTML, JS, CSS, etc.)
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API Name v1");
+                // (Optional) Set the Swagger UI to the app's root URL
+                c.RoutePrefix = string.Empty;
+            });
 
             // loggerFactory.AddConsole();
 

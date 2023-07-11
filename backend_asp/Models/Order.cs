@@ -14,10 +14,10 @@ public class Order
     [Required]
     public int StockID { get; set; }
 
-    public int Quantity { get; set; }
+    public int? Quantity { get; set; }
 
     [Required]
-    public string? BuyerName { get; set; }
+    public string BuyerName { get; set; }
 
     [Range(0.01, 99.99)]
     public decimal Price { get; set; }

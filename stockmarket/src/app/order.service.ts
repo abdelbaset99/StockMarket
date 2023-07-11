@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Order } from './order';
-import { BuyRequest } from './buy-request';
+// import { BuyRequest } from './buy-request';
 @Injectable({
   providedIn: 'root',
 })
 export class OrderService {
-  private url = 'http://localhost:5089/api/Orders';
+  private url = 'http://localhost:5089/api/Order';
   constructor(private http: HttpClient) {}
 
 

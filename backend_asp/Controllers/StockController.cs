@@ -128,12 +128,6 @@ namespace backend_asp.Controllers
         [HttpPost("{selectedstock}/buy")]
         public IActionResult BuyStock( string selectedstock, [FromBody] BuyRequest request)
         {
-            // print the request
-            // using (StreamWriter writer = new StreamWriter("log.txt", true))
-            // {
-            //     writer.WriteLine(request);
-            // }
-            Console.WriteLine(request);
             var stock = _stockService.GetStockByName(selectedstock);
 
             if (stock == null)
@@ -143,22 +137,8 @@ namespace backend_asp.Controllers
 
             _stockService.buyStock(stock.ID, request.Quantity, stock.Price, request.BuyerName);
 
-            // _orderService.AddOrder(order);
-
-
             return Ok();
         }
 
-        // GET: api/Orders
-        [HttpGet("api/Orders")]
-        public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
-        {
-            var orders = await _context.Orders.ToListAsync();
-            if (orders == null)
-            {
-                return NotFound();
-            }
-            return orders;
-        }
     }
 }

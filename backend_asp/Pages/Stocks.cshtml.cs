@@ -13,39 +13,35 @@ namespace backend_asp.Pages
         [BindProperty]
         public IList<Stock> Stocks { get; set; } = new List<Stock>();
 
-        [BindProperty]
-        public IList<Order> Orders { get; set; } = new List<Order>();
-        public StocksModel(StockService stocksService, OrderService orderService)
+        public StocksModel(StockService stocksService)
         {
             _stocksService = stocksService;
-            _ordersService = orderService;
 
         }
         public void OnGet()
         {
             Stocks = _stocksService.GetStocks();
-            Orders = _ordersService.GetOrders();
         }
 
-        public IActionResult OnPostBuyStock(int id)
-        {
-            var stock = _stocksService.GetStock(id);
-            if (stock == null)
-            {
-                return NotFound();
-            }
+        // public IActionResult OnPostBuyStock(int id)
+        // {
+        //     var stock = _stocksService.GetStock(id);
+        //     if (stock == null)
+        //     {
+        //         return NotFound();
+        //     }
 
-            var buyRequest = new BuyRequest
-            {
-                StockName = Request.Form["StockName"],
-                Quantity =  int.Parse(Request.Form["Quantity"]),
-                BuyerName = Request.Form["BuyerName"]
-            };
+        //     var buyRequest = new BuyRequest
+        //     {
+        //         StockName = Request.Form["StockName"],
+        //         Quantity =  int.Parse(Request.Form["Quantity"]),
+        //         BuyerName = Request.Form["BuyerName"]
+        //     };
 
-            _stocksService.buyStock(stock.ID, buyRequest.Quantity, stock.Price, buyRequest.BuyerName);
+        //     _stocksService.buyStock(stock.ID, buyRequest.Quantity, stock.Price, buyRequest.BuyerName);
 
-            return RedirectToPage();
-        }
+        //     return RedirectToPage();
+        // }
 
     }
 }

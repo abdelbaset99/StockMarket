@@ -267,3 +267,8 @@ D:\EGID\backend_asp\bin\Debug\net7.0\runtimes\win-x64\native\gssapi64.dll
 D:\EGID\backend_asp\bin\Debug\net7.0\runtimes\win-x64\native\k5sprt64.dll
 D:\EGID\backend_asp\bin\Debug\net7.0\runtimes\win-x64\native\krb5_64.dll
 D:\EGID\backend_asp\bin\Debug\net7.0\runtimes\win-x64\native\krbcc64.dll
+D:\EGID\backend_asp\obj\Debug\net7.0\backend_asp.MvcApplicationPartsAssemblyInfo.cs
+D:\EGID\backend_asp\bin\Debug\net7.0\Microsoft.OpenApi.dll
+D:\EGID\backend_asp\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\EGID\backend_asp\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\EGID\backend_asp\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll
