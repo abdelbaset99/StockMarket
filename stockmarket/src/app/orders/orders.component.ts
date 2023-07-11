@@ -17,7 +17,7 @@ export class OrdersComponent {
 
   ngOnInit(): void {
     this.getOrders();
-    console.log(this.orders);
+    // console.log(this.orders);
 
   //   this.http.get<any[]>(`http://127.0.0.1:5089/api/Orders`).subscribe(
   //     orders => {

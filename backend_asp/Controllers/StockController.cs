@@ -125,20 +125,34 @@ namespace backend_asp.Controllers
             return (_context.Stocks?.Any(e => e.ID == id)).GetValueOrDefault();
         }
 
-        [HttpPost("{selectedstock}/buy")]
-        public IActionResult BuyStock( string selectedstock, [FromBody] BuyRequest request)
+        // [HttpPost("/buy")]
+        // public IActionResult BuyStock( string selectedstock, [FromBody] BuyRequest request)
+        // {
+        //     var stock = _stockService.GetStockByName(selectedstock);
+
+        //     if (stock == null)
+        //     {
+        //         return NotFound();
+        //     }
+
+        //     _stockService.buyStock(stock.ID, request.Quantity, stock.Price, request.BuyerName);
+
+        //     return Ok();
+        // }
+
+        [HttpPost("{stockID}/buy")]
+        public IActionResult BuyStock([FromBody] Order order)
         {
-            var stock = _stockService.GetStockByName(selectedstock);
+            var stock = _stockService.GetStock(order.StockID);
 
             if (stock == null)
             {
                 return NotFound();
             }
 
-            _stockService.buyStock(stock.ID, request.Quantity, stock.Price, request.BuyerName);
+            _stockService.buyStock(order);
 
             return Ok();
         }
-
     }
 }

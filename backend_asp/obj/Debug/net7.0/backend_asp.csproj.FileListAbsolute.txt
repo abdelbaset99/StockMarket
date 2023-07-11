@@ -272,3 +272,4 @@ D:\EGID\backend_asp\bin\Debug\net7.0\Microsoft.OpenApi.dll
 D:\EGID\backend_asp\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
 D:\EGID\backend_asp\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\EGID\backend_asp\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\EGID\backend_asp\bin\Debug\net7.0\System.Net.WebSockets.WebSocketProtocol.dll
