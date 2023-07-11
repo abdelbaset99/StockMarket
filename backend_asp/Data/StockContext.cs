@@ -12,6 +12,7 @@ namespace backend_asp.Data
         {
         }
         public DbSet<Stock>? Stocks { get; set; }
+        public DbSet<Order>? Orders { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using backend_asp.Data;
 using backend_asp.Models;
+using backend_asp.Services;
 
 namespace backend_asp.Controllers
 {
@@ -15,10 +16,13 @@ namespace backend_asp.Controllers
     public class StockController : ControllerBase
     {
         private readonly StockContext _context;
+        private readonly StockService _stockService;
+        // private readonly OrderService _orderService;
 
-        public StockController(StockContext context)
+        public StockController(StockContext context, StockService stockService)
         {
             _context = context;
+            _stockService = stockService;
         }
 
         // GET: api/Stock
@@ -55,7 +59,7 @@ namespace backend_asp.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutStock(int id, Stock stock)
         {
-            if (id != stock.Id)
+            if (id != stock.ID)
             {
                 return BadRequest();
             }
@@ -93,7 +97,7 @@ namespace backend_asp.Controllers
             _context.Stocks.Add(stock);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetStock", new { id = stock.Id }, stock);
+            return CreatedAtAction("GetStock", new { id = stock.ID }, stock);
         }
 
         // DELETE: api/Stock/5
@@ -118,7 +122,43 @@ namespace backend_asp.Controllers
 
         private bool StockExists(int id)
         {
-            return (_context.Stocks?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Stocks?.Any(e => e.ID == id)).GetValueOrDefault();
+        }
+
+        [HttpPost("{selectedstock}/buy")]
+        public IActionResult BuyStock( string selectedstock, [FromBody] BuyRequest request)
+        {
+            // print the request
+            // using (StreamWriter writer = new StreamWriter("log.txt", true))
+            // {
+            //     writer.WriteLine(request);
+            // }
+            Console.WriteLine(request);
+            var stock = _stockService.GetStockByName(selectedstock);
+
+            if (stock == null)
+            {
+                return NotFound();
+            }
+
+            _stockService.buyStock(stock.ID, request.Quantity, stock.Price, request.BuyerName);
+
+            // _orderService.AddOrder(order);
+
+
+            return Ok();
+        }
+
+        // GET: api/Orders
+        [HttpGet("api/Orders")]
+        public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
+        {
+            var orders = await _context.Orders.ToListAsync();
+            if (orders == null)
+            {
+                return NotFound();
+            }
+            return orders;
         }
     }
 }

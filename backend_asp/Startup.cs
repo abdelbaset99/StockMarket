@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using backend_asp.Data;
+using Microsoft.Extensions.Logging;
+using backend_asp.Models;
 using backend_asp.Services;
+using backend_asp.Data;
 
 namespace backend_asp
 {
@@ -17,7 +20,6 @@ namespace backend_asp
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -27,39 +29,39 @@ namespace backend_asp
             services.AddScoped<StockService>();
 
             services.AddCors(options =>
-                {
-                    options.AddPolicy("AllowAngularDevServer",
+            {
+                options.AddPolicy("AllowAngularDevServer",
                     builder =>
-                        {
-                            builder.WithOrigins("http://localhost:4200")
-                                .AllowAnyHeader()
-                                .AllowAnyMethod();
-                        });
-                });
-
-
+                    {
+                        builder.WithOrigins("http://localhost:4200")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
         }
 
-        // public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        // {
-        //     if (env.IsDevelopment())
-        //     {
-        //         app.UseDeveloperExceptionPage();
-        //         app.UseHsts();
-        //     }
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseHsts();
+            }
 
-        //     app.UseHttpsRedirection();
+            // loggerFactory.AddConsole();
 
-        //     app.UseRouting();
+            app.UseHttpsRedirection();
 
-        //     app.UseCors("AllowAngularDevServer");
+            app.UseRouting();
 
-        //     app.UseAuthorization();
+            app.UseCors("AllowAngularDevServer");
 
-        //     app.UseEndpoints(endpoints =>
-        //     {
-        //         endpoints.MapControllers();
-        //     });
-        // }
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+        }
     }
 }

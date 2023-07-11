@@ -1,9 +1,18 @@
 import { Injectable } from '@angular/core';
-
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Order } from './order';
+import { BuyRequest } from './buy-request';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OrderService {
+  private url = 'http://localhost:5089/api/Orders';
+  constructor(private http: HttpClient) {}
 
-  constructor() { }
+
+  getOrders(): Observable<Order[]> {
+    return this.http.get<Order[]>(this.url);
+  }
+
 }

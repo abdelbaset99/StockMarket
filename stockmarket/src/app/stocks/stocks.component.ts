@@ -1,3 +1,4 @@
+import { BuyRequest } from './../buy-request';
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
@@ -65,7 +66,7 @@ export class StocksComponent {
 
   ngOnInit(): void {
     this.getStocks();
-    console.log(this.stocks);
+    // console.log(this.stocks);
     // this.getStocksData();
     // this.http.get<any[]>(`http://127.0.0.1:5000/`).subscribe(
     //   (stocks) => {
@@ -90,12 +91,13 @@ export class StocksComponent {
   // }
 
   onsubmit(form: NgForm) {
-    const stockid = this.getStockID();
-    const price = this.getStockPrice();
-    const formData = { ...form.value, stockid, price }; // Include the price in the form data
-    console.log(formData);
-    // console.log(form.value);
-    this.http.post<any[]>(`http://127.0.0.1:5000/`, formData).subscribe(
+    console.log(form.value);
+    const request: BuyRequest = {
+      StockName: this.selectedStock,
+      Quantity: form.value.quantity,
+      BuyerName: form.value.name,
+    };
+    this.stockService.buyStock(this.selectedStock, request).subscribe(
       (response) => {
         console.log(response);
       },
@@ -103,5 +105,19 @@ export class StocksComponent {
         console.log(err);
       }
     );
+    // const stockid = this.getStockID();
+    // const price = this.getStockPrice();
+    // // const stockName = this.selectedStock;
+    // const formData = { ...form.value, stockid, price }; // Include the price in the form data
+    // console.log(formData);
+    // // console.log(form.value);
+    // this.http.post<any[]>(`http://127.0.0.1:5089/api/Stock/${this.selectedStock}/buy`, formData).subscribe(
+    //   (response) => {
+    //     console.log(response);
+    //   },
+    //   (err) => {
+    //     console.log(err);
+    //   }
+    // );
   }
 }
