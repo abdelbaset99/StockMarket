@@ -12,6 +12,11 @@ namespace backend_asp.Services
             _context = context;
         }
 
+        public async Task<List<Stock>> GetStocksAsync()
+        {
+            return await Task.Run(() => GetStocks().ToList());
+        }
+        
         public IList<Stock> GetStocks()
         {
             if(_context.Stocks != null)
@@ -39,22 +44,6 @@ namespace backend_asp.Services
             return new Stock();
         }
 
-        // public void buyStock(int id, int quantity, decimal price, string buyerName){
-        //     if(_context.Stocks != null)
-        //     {
-        //         Random rnd = new Random();
-        //         int randomID = rnd.Next(1, 1000000);
-        //         var order = new Order{
-        //             ID = randomID,
-        //             StockID = id,
-        //             Quantity = quantity,
-        //             Price = price,
-        //             BuyerName = buyerName
-        //         };
-        //         _context.Orders.Add(order);
-        //         _context.SaveChanges();
-        //     }
-        // }
         public void buyStock(Order order)
         {
             _context.Orders.Add(order);

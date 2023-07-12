@@ -3,19 +3,39 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Stock } from './stock';
 import { Order } from './order';
-import { BuyRequest } from './buy-request';
+// import { BuyRequest } from './buy-request';
+import * as signalR from '@microsoft/signalr';
 @Injectable({
   providedIn: 'root',
 })
 export class StockService {
   private url = 'http://localhost:5089/api/Stock';
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private hubConnection: signalR.HubConnection) {}
 
-  // buyStock(name: string, request: BuyRequest) {
-  //   // console.log(name);
+  // startConnection = () => {
+  //   this.hubConnection = new signalR.HubConnectionBuilder()
+  //     .withUrl('http://localhost:5089/stockhub', {
+  //       skipNegotiation: true,
+  //       transport: signalR.HttpTransportType.WebSockets,
+  //     })
+  //     .build();
 
-  //   const url = `${this.url}/${name}/buy`;
-  //   return this.http.post(url, request);
+  //   this.hubConnection
+  //     .start()
+  //     .then(() => {
+  //       console.log('Connection started');
+  //       this.hubConnection.on('ReceiveStockPrices', (stocks) => {
+  //         this.stocks = stocks;
+  //         console.log(this.stocks);
+  //       });
+  //     })
+  //     .catch((err) => console.log('Error while starting connection: ' + err));
+
+  //   // this.getStocks();
+
+  //   setInterval(() => {
+  //     this.hubConnection.invoke('UpdateStockPrices');
+  //   }, 10000);
   // }
   buyStock(order: Order): Observable<any> {
     const url = `${this.url}/${order.stockID}/buy`;

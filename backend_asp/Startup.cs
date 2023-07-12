@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using backend_asp.Models;
 using backend_asp.Services;
 using backend_asp.Data;
+using backend_asp.Hubs;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -25,11 +26,10 @@ namespace backend_asp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API Name", Version = "v1" });
-
-    // (Optional) Configure the comments path for the Swagger JSON and UI
-});
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API Name", Version = "v1" });
+                // (Optional) Configure the comments path for the Swagger JSON and UI   
+            });
 
             services.AddControllers();
 
@@ -50,6 +50,11 @@ namespace backend_asp
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
+            });
+
+            services.AddSignalR(options =>
+            {
+                options.EnableDetailedErrors = true;
             });
         }
 
@@ -83,6 +88,7 @@ namespace backend_asp
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<StockHub>("/stockhub");
             });
         }
     }

@@ -11,21 +11,12 @@ import { Order } from '../order';
 })
 export class OrdersComponent {
   title = 'orders';
-  // orders: any[] = [];
   orders: Order[] = [];
   constructor(private http: HttpClient, private orderService: OrderService) {}
 
   ngOnInit(): void {
     this.getOrders();
-    // console.log(this.orders);
 
-  //   this.http.get<any[]>(`http://127.0.0.1:5089/api/Orders`).subscribe(
-  //     orders => {
-  //     this.orders = orders;
-  //   }, err => {
-  //     console.log(err);
-  //   }
-  // );
   }
 
   getOrders() {
