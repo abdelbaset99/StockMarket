@@ -11,7 +11,9 @@ using backend_asp.Data;
 using backend_asp.Hubs;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
 
 
 namespace backend_asp
@@ -47,6 +49,21 @@ namespace backend_asp
 
             services.AddScoped<UserService>();
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    ValidAudience = Configuration["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"] ?? "defaultKey"))
+                };
+            });
+
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAngularDevServer",
@@ -63,8 +80,6 @@ namespace backend_asp
                 options.EnableDetailedErrors = true;
             });
 
-            services.AddIdentity<User, IdentityRole>()
-            .AddEntityFrameworkStores<UserContext>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
@@ -93,6 +108,8 @@ namespace backend_asp
             app.UseCors("AllowAngularDevServer");
 
             app.UseAuthorization();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

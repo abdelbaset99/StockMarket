@@ -11,6 +11,8 @@ import { HomeComponent } from './home/home.component';
 // import { HubConnection } from '@microsoft/signalr/dist/esm/HubConnection';
 import { HubConnection } from '@microsoft/signalr';
 import { createHubConnection } from './hub-connection.factory';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import { createHubConnection } from './hub-connection.factory';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [{ provide: HubConnection, useFactory: createHubConnection }],
   bootstrap: [AppComponent]
