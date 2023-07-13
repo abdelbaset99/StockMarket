@@ -279,3 +279,4 @@ D:\EGID\backend_asp\bin\Debug\net7.0\Microsoft.AspNetCore.Identity.EntityFramewo
 D:\EGID\backend_asp\bin\Debug\net7.0\Microsoft.Extensions.Identity.Core.dll
 D:\EGID\backend_asp\bin\Debug\net7.0\Microsoft.Extensions.Identity.Stores.dll
 D:\EGID\backend_asp\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
+D:\EGID\backend_asp\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
