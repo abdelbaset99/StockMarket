@@ -11,6 +11,8 @@ using backend_asp.Data;
 using backend_asp.Hubs;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace backend_asp
 {
@@ -56,6 +58,9 @@ namespace backend_asp
             {
                 options.EnableDetailedErrors = true;
             });
+
+            services.AddIdentity<User, IdentityRole>()
+            .AddEntityFrameworkStores<UserContext>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
