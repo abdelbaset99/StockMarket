@@ -10,3 +10,4 @@ stocknames.txt
 stocks.txt 
 test.py
 stockmarket/node_modules/
+.history/
