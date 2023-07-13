@@ -1,0 +1,4 @@
+{
+    "dotnet.defaultSolution": "mslearn-create-razor-pages-aspnet-core\\ContosoPizza.sln",
+    "explorer.fileNesting.enabled": true
+}

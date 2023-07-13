@@ -1,0 +1,60 @@
+<h1>Stocks</h1>
+
+<div class="content" role="main">
+  <table class="table-style">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let stock of stocks">
+        <!-- <td>{{ stock.stockID }}</td>
+        <td>{{ stock.stockName}}</td>
+        <td>{{ stock.stockPrice }}</td> -->
+        <td>{{ stock.id }}</td>
+        <td>{{ stock.name}}</td>
+        <td>{{ stock.price }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<dialog class="dialog-style" #makeOrder>
+  <div>
+    <h2>Buy Stock</h2>
+    <form (ngSubmit)="onsubmit(myForm)" #myForm="ngForm" method="post">
+      <div class="form-group">
+        <label class="label-style" for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name: " [(ngModel)]="name" required>
+      </div>
+      <div class="form-group">
+        <label class="label-style" for="stock">Stock</label>
+        <select class="select-style" id="stock" name="stock" [(ngModel)]="selectedStock">
+          <option *ngFor="let stock of stocks" value="{{ stock.name }}">{{ stock.name }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="label-style" for="price">Price</label>
+        <input type="number" id="price" name="price" placeholder="Enter price: " [(ngModel)]="price" required>
+      </div>
+      <div class="form-group">
+        <label class="label-style" for="quantity">Quantity</label>
+        <input type="number" id="quantity" name="quantity" placeholder="Enter quantity: " [(ngModel)]="quantity"
+          required>
+      </div>
+      <button class="button-style" type="submit">Buy</button>
+    </form>
+  </div>
+  <button class="button-style" (click)="makeOrder.close()">
+    OK
+  </button>
+</dialog>
+
+<button class="button-style" (click)="makeOrder.showModal()">Buy Stock</button>
+<!-- add router link to orders page -->
+<button class="button-style" routerLink="/orders">View Orders</button>
+
+<router-outlet></router-outlet>

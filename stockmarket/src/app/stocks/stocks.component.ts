@@ -1,18 +1,10 @@
+// import { BuyRequest } from './../buy-request';
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
-import { SocketsService } from '../sockets.service';
-
-
-
-// interface Stock {
-//   stockID: number;
-//   stockName: string;
-//   stockPrice: number;
-// }
-
-
+import { Stock } from '../stock';
+import { Order } from '../order';
+import { StockService } from '../stock.service';
+import * as signalR from '@microsoft/signalr';
 
 @Component({
   selector: 'app-stocks',
@@ -22,30 +14,16 @@ import { SocketsService } from '../sockets.service';
 export class StocksComponent {
   title = 'stocks';
   name: string = '';
-  // price: number = 0;
+  stockPrice: number = 0;
   quantity: number = 0;
-  // stockID: number = 0;
-  // selectedStock: Stock = { stockID: 0, stockName: '', stockPrice: 0 };
   selectedStock: string = '';
-  stocks: any[] = [];
-  sub: Subscription = new Subscription();
 
-  // stocks: Stock[] = [];
-  constructor(private http: HttpClient, private socketService: SocketsService) {}
-
-  // stockify(starr: any[]) {
-  //   let st: Stock[] = [];
-  //   for (let i = 0; i < starr.length; i++) {
-  //     console.log(starr[i]);
-  //     let s = {
-  //       stockID: starr[i]["id"],
-  //       stockName: starr[i]["name"],
-  //       stockPrice: starr[i]["price"]
-  //     };
-  //     st.push(s);
-  //   }
-  //   return st;
-  // }
+  stocks: Stock[] = [];
+  // private hubConnection!: signalR.HubConnection;
+  constructor(
+    private stockService: StockService,
+    private hubConnection: signalR.HubConnection
+  ) {}
 
   getStockPrice() {
     const selectedStockObj = this.stocks.find(
@@ -61,33 +39,77 @@ export class StocksComponent {
     return selectedStockObj ? selectedStockObj.id : 0;
   }
 
-  ngOnInit() {
-    this.getStocksData();
-    // this.http.get<any[]>(`http://127.0.0.1:5000/`).subscribe(
-    //   (stocks) => {
-    //     // this.stocks = this.stockify(stocks);
-    //     this.stocks = stocks;
+  ngOnInit(): void {
+    this.startConnection();
+    this.getStocks();
+
+    setInterval(() => {
+      if (this.hubConnection.state === signalR.HubConnectionState.Connected) {
+        this.hubConnection
+          .invoke('UpdateStockPrices')
+          .then(() => {
+            console.log('Stock prices updated successfully.');
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        console.warn('SignalR connection is not in the Connected state.');
+      }
+    }, 10000);
+  }
+
+  startConnection = () => {
+    this.hubConnection = new signalR.HubConnectionBuilder()
+      .withUrl('http://localhost:5089/stockhub', {
+        skipNegotiation: true,
+        transport: signalR.HttpTransportType.WebSockets,
+      })
+      .build();
+
+    this.hubConnection
+      .start()
+      .then(() => {
+        console.log('Connection started');
+        this.hubConnection.on('ReceiveStockPrices', (stocks) => {
+          this.stocks = stocks;
+          console.log(this.stocks);
+        });
+      })
+      .catch((err) => console.log('Error while starting connection: ' + err));
+  };
+
+  getStocks(): void {
+    this.stockService.getStocks().subscribe((stocks) => (this.stocks = stocks));
+  }
+
+  onsubmit(form: NgForm) {
+    console.log(form.value);
+
+    // const randomInt = Math.floor(Math.random() * 10000);
+    const unixTimeInSeconds: number = Math.floor(Date.now() / 1000);
+
+    const order: Order = {
+      id: unixTimeInSeconds,
+      stockID: this.getStockID(),
+      buyerName: form.value.name,
+      quantity: form.value.quantity,
+      price: form.value.stockPrice,
+    };
+    // const request: BuyRequest = {
+    //   StockName: this.selectedStock,
+    //   Quantity: form.value.quantity,
+    //   BuyerName: form.value.name,
+    // };
+    // this.stockService.buyStock(this.selectedStock, request).subscribe(
+    //   (response) => {
+    //     console.log(response);
     //   },
     //   (err) => {
     //     console.log(err);
     //   }
     // );
-  }
-
-  getStocksData(): void {
-    this.sub = this.socketService.getStocks().subscribe((stocks) => {
-      this.stocks = stocks;
-      // console.log("stock prices updated");
-    });
-  }
-  
-  onsubmit(form: NgForm) {
-    const stockid = this.getStockID();
-    const price = this.getStockPrice();
-    const formData = { ...form.value, stockid, price }; // Include the price in the form data
-    console.log(formData);
-    // console.log(form.value);
-    this.http.post<any[]>(`http://127.0.0.1:5000/`, formData).subscribe(
+    this.stockService.buyStock(order).subscribe(
       (response) => {
         console.log(response);
       },

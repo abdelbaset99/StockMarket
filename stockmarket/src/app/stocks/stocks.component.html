@@ -1,52 +1,97 @@
-<h1>Stocks</h1>
+<h1 class="display-4">Stocks</h1>
 
-<div class="content" role="main">
-  <table class="table-style">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Price</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let stock of stocks">
-        <!-- <td>{{ stock.stockID }}</td>
-        <td>{{ stock.stockName}}</td>
-        <td>{{ stock.stockPrice }}</td> -->
-        <td>{{ stock.id }}</td>
-        <td>{{ stock.name}}</td>
-        <td>{{ stock.price }}</td>
-      </tr>
-    </tbody>
-  </table>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/orders">Orders</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="col-md-2">
+        <div class="card-body">
+          <button class="btn btn-primary btn-lg btn-block" (click)="makeOrder.showModal()">Buy</button>
+        </div>
+      </div>
+  <div class="row">
+    <!-- <div class="col-md-2">
+        <div class="card-body">
+          <button class="btn btn-primary btn-lg btn-block" (click)="makeOrder.showModal()">Buy</button>
+        </div>
+        <div>
+          <button class="btn btn-secondary btn-lg btn-block" routerLink="/orders">View Orders</button>
+        </div>
+    </div> -->
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <!-- <th></th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let stock of stocks">
+            <td>{{ stock.id }}</td>
+            <td>{{ stock.name }}</td>
+            <td>{{ stock.price }}</td>
+            <!-- <td>
+              <button class="btn btn-primary btn-lg btn-block" (click)="makeOrder.showModal()">Buy</button>
+            </td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- <div class="col-md-2">
+      <div class="card-body">
+        <button class="btn btn-primary btn-lg btn-block" (click)="makeOrder.showModal()">Buy</button>
+      </div>
+    </div> -->
+  </div>
 </div>
 
 <dialog class="dialog-style" #makeOrder>
-  <div>
-    <h2>Buy Stock</h2>
-    <form (ngSubmit)="onsubmit(myForm)" #myForm="ngForm" method="post">
-      <label class="label-style" for="name">Name</label>
-      <input type="text" id="name" name="name" placeholder="Enter your name: " [(ngModel)]="name" required>
-      <label class="label-style" for="stock">Stock</label>
-      <select class="select-style" id="stock" name="stock" [(ngModel)]="selectedStock">
-        <option *ngFor="let stock of stocks" value="{{ stock.name }}">{{ stock.name }}</option>
-      </select>
-      <!-- <label for="price" [(ngModel)]="price">{{price}}</label> -->
-      <!-- <label for="price">Price</label> -->
-      <!-- <input type="number" id="price" name="price" placeholder="Enter price: " [(ngModel)]="price" required> -->
-      <label class="label-style" for="quantity">Quantity</label>
-      <input type="number" id="quantity" name="quantity" placeholder="Enter quantity: " [(ngModel)]="quantity"  required>
-      <button class="button-style" type="submit">Buy</button>
-    </form>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Buy Stock</h5>
+      <button type="button" class="close" (click)="makeOrder.close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="onsubmit(myForm)" #myForm="ngForm" method="post">
+        <div class="form-group">
+          <label class="label-style" for="name">Buyer Name</label>
+          <input type="text" id="buyerName" name="name" placeholder="Enter your name: " [(ngModel)]="name" required
+            class="form-control">
+        </div>
+        <div class="form-group">
+          <label class="label-style" for="selectedStock">Selected Stock</label>
+          <select id="selectedStock" name="selectedStock" [(ngModel)]="selectedStock" class="form-control">
+            <option *ngFor="let stock of stocks" [value]="stock.name">{{ stock.name }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="label-style" for="stockPrice">Stock Price</label>
+          <input type="number" id="stockPrice" name="stockPrice" [(ngModel)]="stockPrice"  class="form-control">
+        </div>
+        <div class="form-group">
+          <label class="label-style" for="quantity">Quantity</label>
+          <input type="number" id="quantity" name="quantity" placeholder="Enter quantity: " [(ngModel)]="quantity"
+            required class="form-control">
+        </div>
+        <button class="btn btn-primary btn-block" type="submit" (click)="makeOrder.close()">Buy</button>
+      </form>
+    </div>
   </div>
-  <button class="button-style" (click)="makeOrder.close()">
-    OK
-  </button>
 </dialog>
-
-<button class="button-style" (click)="makeOrder.showModal()">Buy Stock</button>
-<!-- add router link to orders page -->
-<button class="button-style" routerLink="/orders">View Orders</button>
-
-<router-outlet></router-outlet>

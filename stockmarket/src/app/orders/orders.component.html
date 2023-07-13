@@ -1,26 +1,53 @@
-<h1>Orders</h1>
+<h1 class="display-4">Orders</h1>
 
-<div class="content" role="main">
-    <table class="table-style">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/stocks">Stocks</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped">
         <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>StockID</th>
-                <th>Price</th>
-                <th>Quantity</th>
-            </tr>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Stock ID</th>
+            <th>Price</th>
+            <th>Quantity</th>
+          </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let order of orders">
-                <td>{{ order.id }}</td>
-                <td>{{ order.name }}</td>
-                <td>{{ order.stockid}}</td>
-                <td>{{ order.price }}</td>
-                <td>{{ order.quantity }}</td>
-            </tr>
+          <tr *ngFor="let order of orders">
+            <td>{{ order.id }}</td>
+            <td>{{ order.buyerName }}</td>
+            <td>{{ order.stockID }}</td>
+            <td>{{ order.price }}</td>
+            <td>{{ order.quantity }}</td>
+          </tr>
         </tbody>
-    </table>
+      </table>
+    </div>
+    <!-- <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          <h3>Actions</h3>
+        </div>
+        <div class="card-body">
+          <button class="btn btn-primary btn-lg btn-block" routerLink="/stocks">View Stocks</button>
+        </div>
+      </div>
+    </div> -->
+  </div>
 </div>
-<button class="button-style" routerLink="/stocks">View Stocks</button>
-<router-outlet></router-outlet>
