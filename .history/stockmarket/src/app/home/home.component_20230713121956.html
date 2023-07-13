@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <h1 class="display-4">Welcome to the stock market!</h1>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h3>Quick Links</h3>
+        </div>
+        <div class="card-body">
+          <!-- <a class="btn btn-primary btn-lg btn-block" routerLink="/stocks">View Stocks</a>
+            <a class="btn btn-secondary btn-lg btn-block" routerLink="/orders">View Orders</a> -->
+          <a class="btn btn-primary btn-lg btn-block" (click)="signUp.showModal()">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <dialog class="dialog-style" #signUp>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Buy Stock</h5>
+        <button type="button" class="close" (click)="makeOrder.close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="onsubmit(myForm)" #myForm="ngForm" method="post">
+          <div class="form-group">
+            <label class="label-style" for="name">Buyer Name</label>
+            <input type="text" id="buyerName" name="name" placeholder="Enter your name: " [(ngModel)]="name" required
+              class="form-control">
+          </div>
+          <div class="form-group">
+            <label class="label-style" for="selectedStock">Selected Stock</label>
+            <select id="selectedStock" name="selectedStock" [(ngModel)]="selectedStock" class="form-control">
+              <option *ngFor="let stock of stocks" [value]="stock.name">{{ stock.name }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="label-style" for="stockPrice">Stock Price</label>
+            <input type="number" id="stockPrice" name="stockPrice" [(ngModel)]="stockPrice" class="form-control">
+          </div>
+          <div class="form-group">
+            <label class="label-style" for="quantity">Quantity</label>
+            <input type="number" id="quantity" name="quantity" placeholder="Enter quantity: " [(ngModel)]="quantity"
+              required class="form-control">
+          </div>
+          <button class="btn btn-primary btn-block" type="submit" (click)="makeOrder.close()">Buy</button>
+        </form>
+      </div>
+    </div>
+  </dialog>
+
+
+</body>
+
+</html>
