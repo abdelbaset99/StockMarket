@@ -13,7 +13,10 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using System;
 using System.Text;
+using backend_asp.Configurations;
 
 
 namespace backend_asp
@@ -35,6 +38,8 @@ namespace backend_asp
                 // (Optional) Configure the comments path for the Swagger JSON and UI   
             });
 
+            services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
+
             services.AddControllers();
 
             services.AddDbContext<StockContext>();
@@ -49,18 +54,25 @@ namespace backend_asp
 
             services.AddScoped<UserService>();
 
+            // services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+            //     .AddEntityFrameworkStores<UserContext>();
+
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddEntityFrameworkStores<UserContext>();
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
+                    SaveSigninToken = true,
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = Configuration["Jwt:Issuer"],
                     ValidAudience = Configuration["Jwt:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"] ?? "defaultKey"))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtConfig:Secret"]))
                 };
             });
 

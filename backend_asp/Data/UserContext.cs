@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using backend_asp.Models;
 using MySql.EntityFrameworkCore.Extensions;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace backend_asp.Data
