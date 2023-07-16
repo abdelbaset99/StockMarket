@@ -141,10 +141,10 @@ namespace backend_asp.Controllers
                 }
                 else
                 {
-                    return BadRequest("Invalid request");
+                    return BadRequest("User creation failed!");
                 }
             }
-            return BadRequest("Invalid request");
+            return BadRequest(ModelState);
             // if (_context.Users == null)
             // {
             //     return Problem("Entity set 'UserContext.Users'  is null.");
@@ -221,7 +221,11 @@ namespace backend_asp.Controllers
                     new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                     new Claim(JwtRegisteredClaimNames.Email, user.Email),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                    new Claim(JwtRegisteredClaimNames.Aud, _jwtConfig.Audience),
+                    // new Claim(JwtRegisteredClaimNames.Aud, _jwtConfig.Audience),
+                    new Claim(JwtRegisteredClaimNames.Aud, "localhost"),
+                    // new Claim(JwtRegisteredClaimNames.Iss, _jwtConfig.Issuer),
+                    new Claim(JwtRegisteredClaimNames.Iss, "http://localhost"),
+
                 }),
                 Expires = DateTime.Now.AddMinutes(5),
                 SigningCredentials = new SigningCredentials(

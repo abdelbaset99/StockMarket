@@ -20,7 +20,6 @@ using System.Text;
 using backend_asp.Configurations;
 using backend_asp.Services;
 using System.IdentityModel.Tokens.Jwt;
-using backend_asp.Repositories;
 
 namespace backend_asp
 {
@@ -78,9 +77,9 @@ namespace backend_asp
                 {
                     SaveSigninToken = true,
                     ValidateIssuer = true,
-                    ValidateAudience = false,
+                    ValidateAudience = true,
                     ValidateLifetime = true,
-                    ValidateIssuerSigningKey = false,
+                    ValidateIssuerSigningKey = true,
                     // ValidIssuer = "http://localhost",
                     ValidIssuer = Configuration["JwtConfig:Issuer"],
                     // ValidAudience = "localhost",

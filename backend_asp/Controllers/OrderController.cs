@@ -15,7 +15,7 @@ namespace backend_asp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize]
     public class OrderController : ControllerBase
     {
         private readonly OrderContext _context;

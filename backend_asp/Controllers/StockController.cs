@@ -15,7 +15,8 @@ namespace backend_asp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    // [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 
     public class StockController : ControllerBase
     {
@@ -31,6 +32,7 @@ namespace backend_asp.Controllers
 
         // GET: api/Stock
         [HttpGet]
+        // [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Stock>>> GetStocks()
         {
           if (_context.Stocks == null)

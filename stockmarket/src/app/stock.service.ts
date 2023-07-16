@@ -43,6 +43,6 @@ export class StockService {
   }
 
   getStocks(): Observable<Stock[]> {
-    return this.http.get<Stock[]>(this.url, { headers: { Authentication: `Bearer ${localStorage.getItem('token')}` } });
+    return this.http.get<Stock[]>(this.url, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
   }
 }
