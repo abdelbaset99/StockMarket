@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace backend_asp.Configurations
 {
-    
+
     public class JwtConfig
     {
         public string Secret { get; set; } = null!;
@@ -17,9 +17,11 @@ namespace backend_asp.Configurations
         {
 
         }
-        // public JwtConfig(IConfiguration configuration)
-        // {
-        //     Secret = configuration.GetValue<string>("JwtConfig:Secret");
-        // }
+        public JwtConfig(IConfiguration configuration)
+        {
+            Secret = configuration.GetValue<string>("JwtConfig:Secret");
+            Issuer = configuration.GetValue<string>("JwtConfig:Issuer");
+            Audience = configuration.GetValue<string>("JwtConfig:Audience");
+        }
     }
 }

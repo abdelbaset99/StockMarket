@@ -1,5 +1,5 @@
 // import { BuyRequest } from './../buy-request';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Stock } from '../stock';
 import { Order } from '../order';
@@ -13,13 +13,21 @@ import * as signalR from '@microsoft/signalr';
 })
 export class StocksComponent {
   title = 'stocks';
-  name: string = '';
+  // name: string = '';
+  name: string = localStorage.getItem('userName') || '';
   stockPrice: number = 0;
   quantity: number = 0;
   selectedStock: string = '';
 
   stocks: Stock[] = [];
   // private hubConnection!: signalR.HubConnection;
+
+  @ViewChild('makeOrder') makeOrder : any;
+  showModal(selectedStock: string) {
+    this.selectedStock = selectedStock;
+    this.makeOrder.nativeElement.showModal();
+  }
+
   constructor(
     private stockService: StockService,
     private hubConnection: signalR.HubConnection

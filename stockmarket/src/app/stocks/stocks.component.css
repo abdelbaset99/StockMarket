@@ -1,0 +1,4 @@
+.table-hover tbody tr:hover {
+  background-color: #f45607 !important;
+  /* Use a lighter or darker color here */
+}

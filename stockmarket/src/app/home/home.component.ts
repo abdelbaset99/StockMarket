@@ -89,6 +89,7 @@ export class HomeComponent {
         console.log(res.token);
         // this.jwt = res;
         localStorage.setItem('jwt', res.token);
+        localStorage.setItem('userName', this.userName);
         this.router.navigate(['/stocks']);
       },
       (err) => {
