@@ -13,11 +13,14 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using backend_asp.Services;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Text;
 using backend_asp.Configurations;
-
+using backend_asp.Services;
+using System.IdentityModel.Tokens.Jwt;
+using backend_asp.Repositories;
 
 namespace backend_asp
 {
@@ -57,22 +60,32 @@ namespace backend_asp
             // services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
             //     .AddEntityFrameworkStores<UserContext>();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
-                .AddEntityFrameworkStores<UserContext>();
+            // services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+            //     .AddEntityFrameworkStores<UserContext>();
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                // options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+                // options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
             .AddJwtBearer(options =>
             {
+                options.SaveToken = true;
+                // var secret = Encoding.UTF8.GetBytes(Configuration["JwtConfig:Secret"] ?? throw new InvalidOperationException("JwtConfig:Secret is null"));
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     SaveSigninToken = true,
                     ValidateIssuer = true,
-                    ValidateAudience = true,
+                    ValidateAudience = false,
                     ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = Configuration["Jwt:Issuer"],
-                    ValidAudience = Configuration["Jwt:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtConfig:Secret"]))
+                    ValidateIssuerSigningKey = false,
+                    // ValidIssuer = "http://localhost",
+                    ValidIssuer = Configuration["JwtConfig:Issuer"],
+                    // ValidAudience = "localhost",
+                    ValidAudience = Configuration["JwtConfig:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtConfig:Secret"] ?? throw new InvalidOperationException("JwtConfig:Secret is null")))
                 };
             });
 
@@ -91,6 +104,9 @@ namespace backend_asp
             {
                 options.EnableDetailedErrors = true;
             });
+
+            // services.AddSingleton<IJWTManagerRepository, JWTManagerRepository>();
+
 
         }
 

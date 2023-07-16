@@ -220,7 +220,8 @@ namespace backend_asp.Controllers
                     new Claim("UserName", user.UserName),
                     new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                     new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(JwtRegisteredClaimNames.Aud, _jwtConfig.Audience),
                 }),
                 Expires = DateTime.Now.AddMinutes(5),
                 SigningCredentials = new SigningCredentials(
