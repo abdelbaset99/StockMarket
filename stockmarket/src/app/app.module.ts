@@ -26,9 +26,7 @@ import { Interceptor } from './interceptor';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,
-    // BrowserAnimationsModule,
-    // ToastrModule.forRoot()
+    FormsModule
   ],
   providers: [
   {
