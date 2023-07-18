@@ -15,116 +15,46 @@ namespace backend_asp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    // [Authorize]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 
     public class OrderController : ControllerBase
     {
-        private readonly OrderContext _context;
+        private readonly OrderService _orderService;
 
-        public OrderController(OrderContext context)
+        public OrderController(OrderContext context, OrderService orderService)
         {
-            _context = context;
+            // _context = context;
+            _orderService = orderService;
         }
 
         // GET: api/Order
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
-          if (_context.Orders == null)
-          {
-              return NotFound();
-          }
-            return await _context.Orders.OrderByDescending(o => o.ID).ToListAsync();
-        }
-
-        // GET: api/Order/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Order>> GetOrder(int id)
-        {
-          if (_context.Orders == null)
-          {
-              return NotFound();
-          }
-            var order = await _context.Orders.FindAsync(id);
-
-            if (order == null)
+            var orders = await _orderService.GetOrdersAsync();
+            if (orders == null)
             {
                 return NotFound();
             }
-
-            return order;
+            return Ok(orders);
         }
 
-        // PUT: api/Order/5
+       
+        // POST: api/Order
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutOrder(int id, Order order)
+        [HttpPost("makeorder")]
+        public async Task<ActionResult<Order>> MakeOrder(Order order)
         {
-            if (id != order.ID)
+            if (order == null)
             {
                 return BadRequest();
             }
-
-            _context.Entry(order).State = EntityState.Modified;
-
-            try
+            var newOrder = await _orderService.MakeOrderAsync(order);
+            if (newOrder == null)
             {
-                await _context.SaveChangesAsync();
+                return BadRequest();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!OrderExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Order
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Order>> PostOrder(Order order)
-        {
-          if (_context.Orders == null)
-          {
-              return Problem("Entity set 'OrderContext.Orders'  is null.");
-          }
-            _context.Orders.Add(order);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetOrder", new { id = order.ID }, order);
-        }
-
-        // DELETE: api/Order/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteOrder(int id)
-        {
-            if (_context.Orders == null)
-            {
-                return NotFound();
-            }
-            var order = await _context.Orders.FindAsync(id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-
-            _context.Orders.Remove(order);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool OrderExists(int id)
-        {
-            return (_context.Orders?.Any(e => e.ID == id)).GetValueOrDefault();
+            return Ok(newOrder);
         }
     }
 }

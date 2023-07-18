@@ -20,28 +20,8 @@ namespace backend_asp.Pages
         }
         public void OnGet()
         {
-            Stocks = _stocksService.GetStocks();
+            // Stocks = _stocksService.GetStocks();
         }
-
-        // public IActionResult OnPostBuyStock(int id)
-        // {
-        //     var stock = _stocksService.GetStock(id);
-        //     if (stock == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     var buyRequest = new BuyRequest
-        //     {
-        //         StockName = Request.Form["StockName"],
-        //         Quantity =  int.Parse(Request.Form["Quantity"]),
-        //         BuyerName = Request.Form["BuyerName"]
-        //     };
-
-        //     _stocksService.buyStock(stock.ID, buyRequest.Quantity, stock.Price, buyRequest.BuyerName);
-
-        //     return RedirectToPage();
-        // }
 
     }
 }

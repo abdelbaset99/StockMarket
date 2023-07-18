@@ -1,9 +1,9 @@
-// import { BuyRequest } from './../buy-request';
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Stock } from '../stock';
 import { Order } from '../order';
 import { StockService } from '../stock.service';
+import { OrderService } from '../order.service';
 import * as signalR from '@microsoft/signalr';
 
 @Component({
@@ -13,14 +13,12 @@ import * as signalR from '@microsoft/signalr';
 })
 export class StocksComponent {
   title = 'stocks';
-  // name: string = '';
   name: string = localStorage.getItem('userName') || '';
   stockPrice: number = 0;
   quantity: number = 1;
   selectedStock: string = '';
 
   stocks: Stock[] = [];
-  // private hubConnection!: signalR.HubConnection;
 
   @ViewChild('makeOrder') makeOrder : any;
   showModal(selectedStock: string, stockPrice: number) {
@@ -31,6 +29,7 @@ export class StocksComponent {
 
   constructor(
     private stockService: StockService,
+    private orderService: OrderService,
     private hubConnection: signalR.HubConnection
   ) {}
 
@@ -95,7 +94,6 @@ export class StocksComponent {
   onsubmit(form: NgForm) {
     console.log(form.value);
 
-    // const randomInt = Math.floor(Math.random() * 10000);
     const unixTimeInSeconds: number = Math.floor(Date.now() / 1000);
 
     const order: Order = {
@@ -105,20 +103,7 @@ export class StocksComponent {
       quantity: form.value.quantity,
       price: form.value.stockPrice,
     };
-    // const request: BuyRequest = {
-    //   StockName: this.selectedStock,
-    //   Quantity: form.value.quantity,
-    //   BuyerName: form.value.name,
-    // };
-    // this.stockService.buyStock(this.selectedStock, request).subscribe(
-    //   (response) => {
-    //     console.log(response);
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //   }
-    // );
-    this.stockService.buyStock(order).subscribe(
+    this.orderService.makeOrder(order).subscribe(
       (response) => {
         console.log(response);
       },
@@ -126,5 +111,6 @@ export class StocksComponent {
         console.log(err);
       }
     );
+
   }
 }

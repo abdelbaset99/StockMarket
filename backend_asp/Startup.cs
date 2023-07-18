@@ -13,14 +13,11 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using backend_asp.Services;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Text;
 using backend_asp.Configurations;
-using backend_asp.Services;
-using System.IdentityModel.Tokens.Jwt;
-
+using backend_asp.Repositories;
 namespace backend_asp
 {
     public class Startup
@@ -36,7 +33,7 @@ namespace backend_asp
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API Name", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Stock Market APIs", Version = "v1" });
                 // (Optional) Configure the comments path for the Swagger JSON and UI   
             });
 
@@ -55,6 +52,18 @@ namespace backend_asp
             services.AddScoped<OrderService>();
 
             services.AddScoped<UserService>();
+
+            services.AddScoped<IOrderRepo, OrderRepo>();
+
+            services.AddScoped<IUserRepo, UserRepo>();
+
+            services.AddScoped<IStockRepo, StockRepo>();
+
+            // services.AddIdentity<User, IdentityRole>()
+            // .AddEntityFrameworkStores<UserContext>()
+            // .AddDefaultTokenProviders();
+
+            services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
             // services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
             //     .AddEntityFrameworkStores<UserContext>();
@@ -80,9 +89,7 @@ namespace backend_asp
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    // ValidIssuer = "http://localhost",
                     ValidIssuer = Configuration["JwtConfig:Issuer"],
-                    // ValidAudience = "localhost",
                     ValidAudience = Configuration["JwtConfig:Audience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtConfig:Secret"] ?? throw new InvalidOperationException("JwtConfig:Secret is null")))
                 };
@@ -101,7 +108,7 @@ namespace backend_asp
 
             services.AddSignalR(options =>
             {
-                options.EnableDetailedErrors = true;
+                options.EnableDetailedErrors = false;
             });
 
             // services.AddSingleton<IJWTManagerRepository, JWTManagerRepository>();
@@ -121,7 +128,7 @@ namespace backend_asp
             // Enable middleware to serve Swagger UI (HTML, JS, CSS, etc.)
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API Name v1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Stock Market APIS v1");
                 // (Optional) Set the Swagger UI to the app's root URL
                 c.RoutePrefix = string.Empty;
             });

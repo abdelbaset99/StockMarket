@@ -1,46 +1,31 @@
 using backend_asp.Data;
 using backend_asp.Models;
+using backend_asp.Repositories;
 
 namespace backend_asp.Services
 {
     public class OrderService
     {
-        private readonly StockContext _context = default!;
+        private readonly IOrderRepo _orderRepo = default!;
 
-        public OrderService(StockContext context)
+        public OrderService(IOrderRepo orderRepo)
         {
-            _context = context;
+            _orderRepo = orderRepo;
         }
 
-        public IList<Order> GetOrders()
+        public async Task<IEnumerable<Order>> GetOrdersAsync()
         {
-            if (_context.Orders != null)
+            return await _orderRepo.GetOrdersAsync();
+        }
+
+        public async Task<Order> MakeOrderAsync(Order order)
+        {
+            if (order == null)
             {
-                return _context.Orders.ToList();
+                throw new ArgumentNullException(nameof(order));
             }
-            return new List<Order>();
+            var newOrder = await _orderRepo.MakeOrderAsync(order);
+            return newOrder;
         }
-
-        // public void AddStock(Stock Stock)
-        // {
-        //     if (_context.Stocks != null)
-        //     {
-        //         _context.Stocks.Add(Stock);
-        //         _context.SaveChanges();
-        //     }
-        // }
-
-        // public void DeleteStock(int id)
-        // {
-        //     if (_context.Stocks != null)
-        //     {
-        //         var Stock = _context.Stocks.Find(id);
-        //         if (Stock != null)
-        //         {
-        //             _context.Stocks.Remove(Stock);
-        //             _context.SaveChanges();
-        //         }
-        //     }            
-        // } 
     }
 }

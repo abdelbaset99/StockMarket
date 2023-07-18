@@ -19,7 +19,7 @@ namespace backend_asp.Pages
         }
         public void OnGet()
         {
-            Orders = _ordersService.GetOrders();
+            // Orders = _ordersService.GetOrders();
         }
 
 

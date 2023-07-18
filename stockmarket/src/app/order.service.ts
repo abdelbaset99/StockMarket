@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Order } from './order';
-// import { BuyRequest } from './buy-request';
 @Injectable({
   providedIn: 'root',
 })
@@ -13,6 +12,10 @@ export class OrderService {
 
   getOrders(): Observable<Order[]> {
     return this.http.get<Order[]>(this.url);
+  }
+
+  makeOrder(order: Order): Observable<any> {
+    return this.http.post(`${this.url}/makeorder`, order);
   }
 
 }
