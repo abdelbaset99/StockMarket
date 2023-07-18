@@ -16,15 +16,16 @@ export class StocksComponent {
   // name: string = '';
   name: string = localStorage.getItem('userName') || '';
   stockPrice: number = 0;
-  quantity: number = 0;
+  quantity: number = 1;
   selectedStock: string = '';
 
   stocks: Stock[] = [];
   // private hubConnection!: signalR.HubConnection;
 
   @ViewChild('makeOrder') makeOrder : any;
-  showModal(selectedStock: string) {
+  showModal(selectedStock: string, stockPrice: number) {
     this.selectedStock = selectedStock;
+    this.stockPrice = stockPrice;
     this.makeOrder.nativeElement.showModal();
   }
 
