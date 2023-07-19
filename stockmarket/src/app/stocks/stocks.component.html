@@ -1,4 +1,4 @@
-<h1 class="display-4">Stocks</h1>
+<h1 class="display-4" i18n="@@name">Stocks</h1>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#" i18n="@@home">Home</a>
@@ -39,7 +39,7 @@
         <tbody>
           <tr *ngFor="let stock of stocks">
             <td>{{ stock.id }}</td>
-            <td>{{ stock.name | translate}}</td>
+            <td>{{ stock.name }}</td>
             <td>{{ stock.price }}</td>
             <td>
               <button class="btn btn-primary btn-lg btn-block" (click)="this.showModal(stock.name, stock.price)" i18n="@@buy">Buy</button>
