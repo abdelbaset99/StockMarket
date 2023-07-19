@@ -5,6 +5,14 @@
   "projects": {
     "stockmarket": {
       "projectType": "application",
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "ar": {
+            "translation": "src/locale/messages-ar.xlf"
+          }
+        }
+      },
       "schematics": {},
       "root": "",
       "sourceRoot": "src",
@@ -13,6 +21,8 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "localize": true,
+            "i18nMissingTranslation": "error",
             "outputPath": "dist/stockmarket",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -25,11 +35,15 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/styles-dark.css"
             ],
             "scripts": []
           },
           "configurations": {
+            "ar":{
+              "localize": ["ar"]
+            },
             "production": {
               "budgets": [
                 {
@@ -59,6 +73,9 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
+            "ar":{
+              "browserTarget": "stockmarket:build:development,ar"
+            },
             "production": {
               "browserTarget": "stockmarket:build:production"
             },
@@ -71,7 +88,9 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "stockmarket:build"
+            "browserTarget": "stockmarket:build",
+            "format": "xlf",
+            "outputPath": "src/locale"
           }
         },
         "test": {
@@ -89,7 +108,9 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": ["node_modules/bootstrap/dist/js/bootstrap.js"]
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.js"
+            ]
           }
         }
       }

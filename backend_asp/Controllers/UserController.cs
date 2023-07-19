@@ -1,28 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using backend_asp.Data;
 using backend_asp.Models;
-using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Microsoft.Extensions.Configuration;
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using backend_asp.Configurations;
-using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Logging;
+// using Microsoft.Extensions.Logging;
 using backend_asp.Services;
-using System;
-using System.IO;
-
+// using Microsoft.Extensions.Localization;
 
 namespace backend_asp.Controllers
 {

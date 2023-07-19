@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { UserService } from '../user.service';
 import { UserSignIn } from '../userSignIn';
 import { UserSignUp } from '../userSignUp';
+import { ThemeService } from '../theme.service';
 
 @Component({
   selector: 'app-home',
@@ -21,8 +22,12 @@ export class HomeComponent {
   userName: string = '';
   password: string = '';
 
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(private router: Router, private userService: UserService, private themeService: ThemeService) {}
 
+  get isDarkTheme(): boolean {
+    return this.themeService.isDarkTheme;
+  }
+  
   ngOnInit(): void {}
 
   onSignUpSubmit(form: NgForm) {

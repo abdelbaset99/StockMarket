@@ -9,7 +9,7 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/stocks">Stocks</a>
+        <a class="nav-link" routerLink="/stocks" i18n="@@name">Stocks</a>
       </li>
     </ul>
   </div>
@@ -21,18 +21,18 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Stock ID</th>
-            <th>Price</th>
-            <th>Quantity</th>
+            <th i18n="@@orderId">ID</th>
+            <th i18n="@@buyerName">Name</th>
+            <th i18n="@@id">Stock ID</th>
+            <th i18n="@@price">Price</th>
+            <th i18n="@@quantity">Quantity</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let order of orders">
             <td>{{ order.id }}</td>
             <td>{{ order.buyerName }}</td>
-            <td>{{ order.stockID }}</td>
+            <td>{{ order.stockID}}</td>
             <td>{{ order.price }}</td>
             <td>{{ order.quantity }}</td>
           </tr>

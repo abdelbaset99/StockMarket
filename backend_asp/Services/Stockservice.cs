@@ -18,6 +18,6 @@ namespace backend_asp.Services
         {
             return await _stockRepo.GetStocksAsync();
         }
-        
-          }    
+
+    }
 }
