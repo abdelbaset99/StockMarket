@@ -1,7 +1,14 @@
-<h1 class="display-4">Orders</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<h1 class="display-4">{{"ORDERS" | translate}}</h1>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Home</a>
+  <a class="navbar-brand" href="#">{{"HOME" | translate}}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
     aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -9,7 +16,7 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/stocks">Stocks</a>
+        <a class="nav-link" routerLink="/stocks">{{"STOCKS" | translate}}</a>
       </li>
     </ul>
   </div>
@@ -21,11 +28,11 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Stock ID</th>
-            <th>Price</th>
-            <th>Quantity</th>
+            <th>{{"ORDER.ID" | translate}}</th>
+            <th>{{"ORDER.BUYER_NAME" | translate}}</th>
+            <th>{{"ORDER.STOCK_ID" | translate}}</th>
+            <th>{{"ORDER.PRICE" | translate}}</th>
+            <th>{{"ORDER.QUANTITY" | translate}}</th>
           </tr>
         </thead>
         <tbody>
@@ -41,3 +48,6 @@
     </div>
   </div>
 </div>
+
+</body>
+</html>

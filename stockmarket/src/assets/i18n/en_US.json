@@ -1,22 +1,27 @@
 {
   "TITLE": "Welcome to the stock market!",
-  "STOCK":{
+  "HOME": "Home",
+  "STOCKS": "Stocks",
+  "STOCK": {
     "NAME": "Stock Name",
     "PRICE": "Price",
-    "ID": "ID"
+    "ID": "ID",
+    "BUY": "Buy"
   },
-  "USER":{
+  "USER": {
     "NAME": "Name",
     "EMAIL": "Email",
     "PASSWORD": "Password"
   },
-  "ORDER":{
+  "ORDERS": "Orders",
+  "ORDER": {
+    "ID": "Order ID",
     "BUYER_NAME": "Buyer Name",
     "PRICE": "Price",
     "QUANTITY": "Quantity",
     "STOCK_ID": "Stock ID"
   },
-  "AUTH":{
+  "AUTH": {
     "SIGN_UP": "Sign Up",
     "SIGN_IN": "Sign In"
   }
