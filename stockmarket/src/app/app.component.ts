@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'stocks';
-  constructor() {}
+  constructor(
+    public translate: TranslateService // inject TranslateService
+  ) {
+    translate.addLangs(['en_US', 'ar_EG']); // add languages
+    translate.setDefaultLang('en_US'); // set default language
+  }
+
+  switchLang(lang: string) {
+    this.translate.use(lang);
+  }
 
   ngOnInit() {}
 }
