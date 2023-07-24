@@ -5,6 +5,7 @@ import { Order } from '../order';
 import { StockService } from '../stock.service';
 import { OrderService } from '../order.service';
 import { TranslateService } from '@ngx-translate/core';
+import { ThemeService } from '../theme.service';
 import * as signalR from '@microsoft/signalr';
 
 @Component({
@@ -29,6 +30,7 @@ export class StocksComponent {
   }
 
   constructor(
+    public themeService: ThemeService,
     public translate: TranslateService, // inject TranslateService
     private stockService: StockService,
     private orderService: OrderService,

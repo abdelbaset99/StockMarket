@@ -2,6 +2,8 @@
 <select #selLang (change)="switchLang(selLang.value)">
   <option *ngFor="let language of translate.getLangs()" [value]="language">{{ language }}</option>
 </select>
+<button (click)="toggleTheme()">Toggle Theme</button>
+
 <!-- </div> -->
 
 <!-- Change Language: -->

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-
+import { ThemeService } from './theme.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,7 +10,9 @@ export class AppComponent {
   title = 'stocks';
   constructor(
     public translate: TranslateService, // inject TranslateService
-  ) {
+    private themeService: ThemeService
+  )
+  {
     translate.addLangs(['en_US', 'ar_EG']); // add languages
     translate.setDefaultLang('en_US'); // set default language
   }
@@ -19,7 +21,9 @@ export class AppComponent {
     this.translate.use(lang);
   }
 
-  public rtl: boolean = false;
+  toggleTheme() {
+    this.themeService.toggleTheme();
+  }
 
   ngOnInit() {}
 }
