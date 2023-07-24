@@ -53,7 +53,7 @@
               <td>{{ stock.price }}</td>
               <td>
                 <button class="btn btn-primary btn-lg btn-block"
-                  (click)="this.showModal(stock.name, stock.price)">{{"STOCK.BUY" | translate}}</button>
+                  (click)="this.showModal(stock, stock.price)">{{"BUY" | translate}}</button>
               </td>
             </tr>
           </tbody>
@@ -65,7 +65,7 @@
   <dialog class="dialog-style" #makeOrder>
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Buy Stock</h5>
+        <h5 class="modal-title">{{"BUY" | translate}}</h5>
         <button type="button" class="close" (click)="makeOrder.close()">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -73,28 +73,27 @@
       <div class="modal-body">
         <form (ngSubmit)="onsubmit(myForm)" #myForm="ngForm" method="post">
           <div class="form-group">
-            <label class="label-style" for="name">Buyer Name</label>
+            <label class="label-style" for="name">{{"ORDER.BUYER_NAME" | translate}}</label>
             <input type="text" id="buyerName" name="name" placeholder="Enter your name: " [(ngModel)]="name" required
               readonly class="form-control">
           </div>
           <div class="form-group">
-            <label class="label-style" for="selectedStock">Selected Stock</label>
+            <label class="label-style" for="selectedStock">{{"STOCK.NAME" | translate}}</label>
             <!-- <select id="selectedStock" name="selectedStock" [(ngModel)]="selectedStock" class="form-control">
             <option *ngFor="let stock of stocks" [value]="stock.name">{{ stock.name }}</option>
           </select> -->
-            <input type="text" id="selectedStock" name="selectedStock" [(ngModel)]="selectedStock" class="form-control"
-              readonly>
+            <input type="text" id="selectedStock" name="selectedStock" [ngModel]="selectedStock" class="form-control" readonly>
           </div>
           <div class="form-group">
-            <label class="label-style" for="stockPrice">Stock Price</label>
+            <label class="label-style" for="stockPrice">{{"ORDER.PRICE" | translate}}</label>
             <input type="number" id="stockPrice" name="stockPrice" [(ngModel)]="stockPrice" class="form-control">
           </div>
           <div class="form-group">
-            <label class="label-style" for="quantity">Quantity</label>
+            <label class="label-style" for="quantity">{{"ORDER.QUANTITY" |  translate}}</label>
             <input type="number" id="quantity" name="quantity" placeholder="Enter quantity: " [(ngModel)]="quantity"
               required class="form-control">
           </div>
-          <button class="btn btn-primary btn-block" type="submit" (click)="makeOrder.close()">Buy</button>
+          <button class="btn btn-primary btn-block" type="submit" (click)="makeOrder.close()">{{"BUY" | translate}}</button>
         </form>
       </div>
     </div>

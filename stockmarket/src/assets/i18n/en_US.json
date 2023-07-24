@@ -2,11 +2,11 @@
   "TITLE": "Welcome to the stock market!",
   "HOME": "Home",
   "STOCKS": "Stocks",
+  "BUY": "Buy",
   "STOCK": {
     "NAME": "Stock Name",
     "PRICE": "Price",
-    "ID": "ID",
-    "BUY": "Buy"
+    "ID": "ID"
   },
   "USER": {
     "NAME": "Name",

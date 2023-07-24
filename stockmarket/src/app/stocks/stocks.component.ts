@@ -22,8 +22,8 @@ export class StocksComponent {
   stocks: Stock[] = [];
 
   @ViewChild('makeOrder') makeOrder : any;
-  showModal(selectedStock: string, stockPrice: number) {
-    this.selectedStock = selectedStock;
+  showModal(selectedStock: Stock, stockPrice: number) {
+    this.selectedStock = this.translate.currentLang === 'en_US'? selectedStock.name : selectedStock.arName;
     this.stockPrice = stockPrice;
     this.makeOrder.nativeElement.showModal();
   }
