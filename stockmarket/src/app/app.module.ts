@@ -31,6 +31,9 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
       loader: {
         provide: TranslateLoader,
         useFactory: httpTranslateLoaderFactory,
+        // useFactory: (http: HttpClient) => {
+        //   return new TranslateHttpLoader(http, );
+        // },
         deps: [HttpClient],
       },
     }),

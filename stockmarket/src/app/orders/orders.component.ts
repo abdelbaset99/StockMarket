@@ -2,6 +2,7 @@ import { OrderService } from './../order.service';
 import { Component } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Order } from '../order';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { Order } from '../order';
 export class OrdersComponent {
   title = 'orders';
   orders: Order[] = [];
-  constructor(private http: HttpClient, private orderService: OrderService) {}
+  constructor(private orderService: OrderService, public translate: TranslateService) {}
 
   ngOnInit(): void {
     this.getOrders();

@@ -41,8 +41,15 @@
             "scripts": []
           },
           "configurations": {
-            "ar":{
-              "localize": ["ar"]
+            "ar": {
+              "localize": [
+                "ar"
+              ]
+            },
+            "en": {
+              "localize": [
+                "en"
+              ]
             },
             "production": {
               "budgets": [
@@ -73,7 +80,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
-            "ar":{
+            "ar": {
               "browserTarget": "stockmarket:build:development,ar"
             },
             "production": {

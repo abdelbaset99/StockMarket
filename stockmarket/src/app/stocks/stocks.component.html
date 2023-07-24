@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang={{translate.currentLang}} [dir]="translate.currentLang === 'en_US'? 'ltr' : 'rtl' ">
 
 <head>
   <meta charset="UTF-8">
@@ -44,7 +44,12 @@
           <tbody>
             <tr *ngFor="let stock of stocks">
               <td>{{ stock.id }}</td>
-              <td>{{ stock.name }}</td>
+              <td>
+                <ng-container *ngIf="translate.currentLang === 'en_US'; else ar">{{ stock.name }}</ng-container>
+                <ng-template #ar>
+                  {{ stock.arName }}
+                </ng-template>
+              </td>
               <td>{{ stock.price }}</td>
               <td>
                 <button class="btn btn-primary btn-lg btn-block"

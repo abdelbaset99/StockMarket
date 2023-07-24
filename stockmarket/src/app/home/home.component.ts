@@ -5,7 +5,7 @@ import { UserService } from '../user.service';
 import { UserSignIn } from '../userSignIn';
 import { UserSignUp } from '../userSignUp';
 import { ThemeService } from '../theme.service';
-
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
@@ -23,12 +23,16 @@ export class HomeComponent {
   userName: string = '';
   password: string = '';
 
-  constructor(private router: Router, private userService: UserService, private themeService: ThemeService) {}
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private themeService: ThemeService,
+    public translate: TranslateService) {}
 
   get isDarkTheme(): boolean {
     return this.themeService.isDarkTheme;
   }
-  
+
   ngOnInit(): void {}
 
   onSignUpSubmit(form: NgForm) {
