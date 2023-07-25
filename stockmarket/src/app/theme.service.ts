@@ -16,11 +16,6 @@ export class ThemeService {
 
   toggleTheme(): void {
     this._isDarkTheme = !this._isDarkTheme;
-    const themeHref = this.isDarkTheme ? 'styles-dark.css' : 'styles.css';
-    const linkElement = document.querySelector(
-      'link[rel="stylesheet"]'
-    ) as HTMLLinkElement;
-    linkElement.href = themeHref;
   }
 
   constructor() {}

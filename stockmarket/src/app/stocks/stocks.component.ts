@@ -11,7 +11,7 @@ import * as signalR from '@microsoft/signalr';
 @Component({
   selector: 'app-stocks',
   templateUrl: './stocks.component.html',
-  styleUrls: ['./stocks.component.css'],
+  styleUrls: ['./stocks.component.css', '../../styles.css', '../../styles-dark.css'],
 })
 export class StocksComponent {
   title = 'stocks';
@@ -22,9 +22,12 @@ export class StocksComponent {
 
   stocks: Stock[] = [];
 
-  @ViewChild('makeOrder') makeOrder : any;
+  @ViewChild('makeOrder') makeOrder: any;
   showModal(selectedStock: Stock, stockPrice: number) {
-    this.selectedStock = this.translate.currentLang === 'en_US'? selectedStock.name : selectedStock.arName;
+    this.selectedStock =
+      this.translate.currentLang === 'en_US'
+        ? selectedStock.name
+        : selectedStock.arName;
     this.stockPrice = stockPrice;
     this.makeOrder.nativeElement.showModal();
   }
@@ -115,6 +118,5 @@ export class StocksComponent {
         console.log(err);
       }
     );
-
   }
 }

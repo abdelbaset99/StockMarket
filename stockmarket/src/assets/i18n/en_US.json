@@ -19,7 +19,8 @@
     "BUYER_NAME": "Buyer Name",
     "PRICE": "Price",
     "QUANTITY": "Quantity",
-    "STOCK_ID": "Stock ID"
+    "STOCK_ID": "Stock ID",
+    "SUCCESS": "Success"
   },
   "AUTH": {
     "SIGN_UP": "Sign Up",

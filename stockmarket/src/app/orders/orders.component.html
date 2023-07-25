@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{"ORDERS" | translate}}</title>
 </head>
-<body>
+<body class="{{themeService.isDarkTheme? 'text-white bg-dark' : ''}}">
 <h1 class="display-4">{{"ORDERS" | translate}}</h1>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg {{themeService.isDarkTheme? 'navbar-dark bg-dark' : 'navbar-light bg-light'}}">
   <a class="navbar-brand" href="#">{{"HOME" | translate}}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
     aria-expanded="false" aria-label="Toggle navigation">
@@ -24,8 +25,8 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-12">
-      <table class="table table-striped">
+    <!-- <div class="col-md-12"> -->
+      <table class="table table-striped {{themeService.isDarkTheme? 'table-dark' : ''}}">
         <thead>
           <tr>
             <th>{{"ORDER.ID" | translate}}</th>
@@ -45,7 +46,7 @@
           </tr>
         </tbody>
       </table>
-    </div>
+    <!-- </div> -->
   </div>
 </div>
 

@@ -1,10 +1,9 @@
-<!-- <div [dir]="translate.currentLang === 'en_US'? 'ltr' : 'rtl' "> -->
+<div class="{{themeService.isDarkTheme? 'bg-dark' : ''}}">
 <select #selLang (change)="switchLang(selLang.value)">
   <option *ngFor="let language of translate.getLangs()" [value]="language">{{ language }}</option>
 </select>
 <button (click)="toggleTheme()">Toggle Theme</button>
 
-<!-- </div> -->
+</div>
 
-<!-- Change Language: -->
 <router-outlet></router-outlet>

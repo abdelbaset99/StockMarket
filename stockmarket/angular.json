@@ -31,12 +31,12 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "src\\favicon.ico",
+              "src\\assets"
             ],
             "styles": [
-              "src/styles.css",
-              "src/styles-dark.css"
+              "D:\\EGID\\stockmarket\\src\\styles.css",
+              "D:\\EGID\\stockmarket\\src\\styles-dark.css"
             ],
             "scripts": []
           },

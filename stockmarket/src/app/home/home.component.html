@@ -3,30 +3,32 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
   <title>Stock Market</title>
 </head>
 
 
-<body>
-  <div class="container-fluid" >
-    <div class="row" [ngClass]="{'theme-light': !isDarkTheme, 'theme-dark': isDarkTheme}">
+<body class="{{themeService.isDarkTheme? 'text-white bg-dark' : ''}}">
+  <div class="container-fluid">
+    <div class="row">
       <div class="col-md-8">
         <h1 class="display-4">{{'TITLE' | translate}}</h1>
       </div>
-      <div class="card">
+      <div class="card {{themeService.isDarkTheme? 'text-white bg-dark' : ''}}">
         <div class="card-header">
         </div>
         <div class="card-body">
-          <a class="btn btn-primary btn-lg btn-block p-3 m-1" (click)="signUp.showModal()">{{'AUTH.SIGN_UP' | translate}}</a>
-          <a class="btn btn-primary btn-lg btn-block p-3 m-1" (click)="signIn.showModal()">{{'AUTH.SIGN_IN' | translate}}</a>
+          <a class="btn btn-primary btn-lg btn-block p-3 m-1" (click)="signUp.showModal()">{{'AUTH.SIGN_UP' |
+            translate}}</a>
+          <a class="btn btn-primary btn-lg btn-block p-3 m-1" (click)="signIn.showModal()">{{'AUTH.SIGN_IN' |
+            translate}}</a>
         </div>
 
       </div>
     </div>
   </div>
 
-  <dialog class="dialog-style" #signUp>
+  <dialog class="dialog-style {{themeService.isDarkTheme? 'text-white bg-dark' : ''}}" #signUp>
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">{{'AUTH.SIGN_UP' | translate}}</h5>
@@ -36,29 +38,32 @@
       </div>
       <div class="modal-body">
         <form (ngSubmit)="onSignUpSubmit(myForm)" #myForm="ngForm" method="post">
-          <div class="form-group">
-            <label class="label-style" for="newUserName">{{'USER.NAME' | translate}}</label>
-            <input type="text" id="newUserName" name="newUserName"
-              [(ngModel)]="newUserName" required class="form-control">
+          <div class="text-white bg-dark">
+            <div class="form-group">
+              <label class="label-style" for="newUserName">{{'USER.NAME' | translate}}</label>
+              <input type="text" id="newUserName" name="newUserName" [(ngModel)]="newUserName" required
+                class="form-control">
+            </div>
+            <div class="form-group">
+              <label class="label-style" for="newPassword">{{'USER.PASSWORD' | translate}}</label>
+              <input type="password" id="newPassword" name="newPassword" [(ngModel)]="newPassword" required
+                class="form-control">
+            </div>
+            <div class="form-group">
+              <label class="label-style" for="newEmail">{{'USER.EMAIL' | translate}}</label>
+              <input type="email" id="newEmail" name="newEmail" [(ngModel)]="newEmail" required class="form-control">
+            </div>
+            <br>
+            <button class="btn btn-primary btn-block" type="submit" (click)="signUp.close()">{{'AUTH.SIGN_UP' |
+              translate}}</button>
+
           </div>
-          <div class="form-group">
-            <label class="label-style" for="newPassword">{{'USER.PASSWORD' | translate}}</label>
-            <input type="password" id="newPassword" name="newPassword"
-              [(ngModel)]="newPassword" required class="form-control">
-          </div>
-          <div class="form-group">
-            <label class="label-style" for="newEmail">{{'USER.EMAIL' | translate}}</label>
-            <input type="email" id="newEmail" name="newEmail"  [(ngModel)]="newEmail"
-              required class="form-control">
-          </div>
-          <br>
-          <button class="btn btn-primary btn-block" type="submit" (click)="signUp.close()">{{'AUTH.SIGN_UP' | translate}}</button>
         </form>
       </div>
     </div>
   </dialog>
 
-  <dialog class="dialog-style" #signIn>
+  <dialog class="dialog-style {{themeService.isDarkTheme? 'text-white bg-dark' : ''}}" #signIn>
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">{{'AUTH.SIGN_IN' | translate}}</h5>
@@ -70,16 +75,15 @@
         <form (ngSubmit)="onSignInSubmit(myForm)" #myForm="ngForm" method="post">
           <div class="form-group">
             <label class="label-style" for="userName">{{'USER.NAME' | translate}}</label>
-            <input type="text" id="userName" name="userName"
-              [(ngModel)]="userName" required class="form-control">
+            <input type="text" id="userName" name="userName" [(ngModel)]="userName" required class="form-control">
           </div>
           <div class="form-group">
             <label class="label-style" for="password">{{'USER.PASSWORD' | translate}}</label>
-            <input type="password" id="password" name="password"
-              [(ngModel)]="password" required class="form-control">
+            <input type="password" id="password" name="password" [(ngModel)]="password" required class="form-control">
           </div>
           <br>
-          <button class="btn btn-primary btn-block" type="submit" (click)="signIn.close()">{{'AUTH.SIGN_IN' | translate}}</button>
+          <button class="btn btn-primary btn-block" type="submit" (click)="signIn.close()">{{'AUTH.SIGN_IN' |
+            translate}}</button>
         </form>
       </div>
     </div>
