@@ -16,6 +16,8 @@ import { createHubConnection } from './hub-connection.factory';
 import { Interceptor } from './interceptor';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import * as AOS from 'aos';
+
 
 export function httpTranslateLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -51,4 +53,8 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor() {
+    AOS.init();
+  }
+}

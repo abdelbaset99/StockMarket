@@ -36,7 +36,8 @@
             ],
             "styles": [
               "D:\\EGID\\stockmarket\\src\\styles.css",
-              "D:\\EGID\\stockmarket\\src\\styles-dark.css"
+              "D:\\EGID\\stockmarket\\src\\styles-dark.css",
+              "D:\\EGID\\stockmarket\\node_modules\\aos\\dist\\aos.css"
             ],
             "scripts": []
           },

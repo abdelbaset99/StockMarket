@@ -20,7 +20,9 @@
     "PRICE": "Price",
     "QUANTITY": "Quantity",
     "STOCK_ID": "Stock ID",
-    "SUCCESS": "Success"
+    "SUCCESS": "Success",
+    "SUCCESS_MESSAGE": "You bought {{q}} of {{s}} for {{p}} each. Total: {{t}}",
+    "VIEW_ORDERS": "View Orders"
   },
   "AUTH": {
     "SIGN_UP": "Sign Up",

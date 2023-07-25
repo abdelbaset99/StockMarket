@@ -11,16 +11,19 @@
 <body class="{{themeService.isDarkTheme? 'text-white bg-dark' : ''}}">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-8 mx-auto text-center">
         <h1 class="display-4">{{'TITLE' | translate}}</h1>
       </div>
-      <div class="card {{themeService.isDarkTheme? 'text-white bg-dark' : ''}}">
+      <div class="card  {{themeService.isDarkTheme? 'text-white bg-dark' : ''}}">
         <div class="card-header">
         </div>
-        <div class="card-body">
-          <a class="btn btn-primary btn-lg btn-block p-3 m-1" (click)="signUp.showModal()">{{'AUTH.SIGN_UP' |
+        <div class="card-body mx-auto text-center">
+          <a class="btn btn-primary btn-lg btn-block p-3 m-1 {{themeService.isDarkTheme? 'bg-warning text-dark' : ''}}"
+            (click)="signUp.showModal()">{{'AUTH.SIGN_UP' |
             translate}}</a>
-          <a class="btn btn-primary btn-lg btn-block p-3 m-1" (click)="signIn.showModal()">{{'AUTH.SIGN_IN' |
+          <br>
+          <a class="btn btn-primary btn-lg btn-block p-3 m-1 {{themeService.isDarkTheme? 'bg-warning text-dark' : ''}}"
+            (click)="signIn.showModal()">{{'AUTH.SIGN_IN' |
             translate}}</a>
         </div>
 
@@ -54,7 +57,8 @@
               <input type="email" id="newEmail" name="newEmail" [(ngModel)]="newEmail" required class="form-control">
             </div>
             <br>
-            <button class="btn btn-primary btn-block" type="submit" (click)="signUp.close()">{{'AUTH.SIGN_UP' |
+            <button class="btn btn-primary btn-block {{themeService.isDarkTheme? 'bg-warning text-dark' : ''}}"
+              type="submit" (click)="signUp.close()">{{'AUTH.SIGN_UP' |
               translate}}</button>
 
           </div>
@@ -82,7 +86,8 @@
             <input type="password" id="password" name="password" [(ngModel)]="password" required class="form-control">
           </div>
           <br>
-          <button class="btn btn-primary btn-block" type="submit" (click)="signIn.close()">{{'AUTH.SIGN_IN' |
+          <button class="btn btn-primary btn-block {{themeService.isDarkTheme? 'bg-warning text-dark' : ''}}"
+            type="submit" (click)="signIn.close()">{{'AUTH.SIGN_IN' |
             translate}}</button>
         </form>
       </div>

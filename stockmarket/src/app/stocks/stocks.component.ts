@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, HostListener, Renderer2, ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Stock } from '../stock';
 import { Order } from '../order';
@@ -7,11 +7,20 @@ import { OrderService } from '../order.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ThemeService } from '../theme.service';
 import * as signalR from '@microsoft/signalr';
+import { Router } from '@angular/router';
+import * as AOS from 'aos';
+// import { trigger, transition, style, animate } from '@angular/animations';
+// import {animate.css}
 
 @Component({
   selector: 'app-stocks',
   templateUrl: './stocks.component.html',
-  styleUrls: ['./stocks.component.css', '../../styles.css', '../../styles-dark.css'],
+  styleUrls: [
+    './stocks.component.css',
+    '../../styles.css',
+    '../../styles-dark.css',
+    '../../../node_modules/animate.css/animate.min.css',
+  ],
 })
 export class StocksComponent {
   title = 'stocks';
@@ -19,26 +28,50 @@ export class StocksComponent {
   stockPrice: number = 0;
   quantity: number = 1;
   selectedStock: string = '';
-
   stocks: Stock[] = [];
 
+  orderStock!: any;
+  orderQuantity!: any;
+  orderPrice!: any;
+  orderTotalPrice!: any;
+  successMessage: string = '';
+
   @ViewChild('makeOrder') makeOrder: any;
-  showModal(selectedStock: Stock, stockPrice: number) {
+  showMakeOrderModal(selectedStock: Stock) {
     this.selectedStock =
       this.translate.currentLang === 'en_US'
         ? selectedStock.name
         : selectedStock.arName;
-    this.stockPrice = stockPrice;
+    this.stockPrice = selectedStock.price;
     this.makeOrder.nativeElement.showModal();
   }
 
+  @ViewChild('viewOrder') viewOrder: any;
+  showViewOrderModal() {
+    this.orderTotalPrice = this.quantity * this.stockPrice;
+    this.successMessage = this.translate.instant('ORDER.SUCCESS_MESSAGE', {
+      q: this.quantity,
+      s: this.selectedStock,
+      p: this.stockPrice,
+      t: this.orderTotalPrice,
+    });
+    this.viewOrder.nativeElement.showModal();
+  }
+
   constructor(
+    private router: Router,
+    private renderer: Renderer2,
+    private el: ElementRef,
     public themeService: ThemeService,
     public translate: TranslateService, // inject TranslateService
     private stockService: StockService,
     private orderService: OrderService,
     private hubConnection: signalR.HubConnection
   ) {}
+
+  viewOrders() {
+    this.router.navigate(['/orders']);
+  }
 
   getStockPrice() {
     const selectedStockObj = this.stocks.find(
@@ -55,6 +88,7 @@ export class StocksComponent {
   }
 
   ngOnInit(): void {
+    AOS.init();
     this.startConnection();
     this.getStocks();
 
