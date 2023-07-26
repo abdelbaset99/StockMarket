@@ -17,6 +17,7 @@ import { Interceptor } from './interceptor';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import * as AOS from 'aos';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'; // import MatSlideToggleModule
 
 
 export function httpTranslateLoaderFactory(http: HttpClient) {
@@ -29,6 +30,7 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    MatSlideToggleModule, 
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

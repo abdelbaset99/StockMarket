@@ -10,7 +10,29 @@
 
 <body class="{{themeService.isDarkTheme? 'text-white bg-dark' : ''}}">
   <div class="container-fluid">
-    <div class="row">
+    <div class="col-md-8 mx-auto text-center">
+      <h1 class="display-4">{{'TITLE' | translate}}</h1>
+    </div>
+    <nav
+      class="navbar navbar-expand-lg {{ themeService.isDarkTheme ? 'navbar-dark bg-dark' : 'navbar-light bg-light' }}">
+      <!-- <a class="navbar-brand" href="#">{{'HOME' | translate}}</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button> -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <!-- Use the 'toggleForm' method to toggle the forms -->
+          <li class="nav-item">
+            <a class="nav-link btn btn-secondary" (click)="toggleForm('signUp')">{{'AUTH.SIGN_UP' | translate}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn btn-secondary" (click)="toggleForm('signIn')">{{'AUTH.SIGN_IN' | translate}}</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- <div class="row">
       <div class="col-md-8 mx-auto text-center">
         <h1 class="display-4">{{'TITLE' | translate}}</h1>
       </div>
@@ -19,18 +41,72 @@
         </div>
         <div class="card-body mx-auto text-center">
           <a class="btn btn-primary btn-lg btn-block p-3 m-1 {{themeService.isDarkTheme? 'bg-warning text-dark' : ''}}"
-            (click)="signUp.showModal()">{{'AUTH.SIGN_UP' |
-            translate}}</a>
+            (click)="this.toggleForm('signUp')">
+            {{'AUTH.SIGN_UP' | translate}}</a>
           <br>
           <a class="btn btn-primary btn-lg btn-block p-3 m-1 {{themeService.isDarkTheme? 'bg-warning text-dark' : ''}}"
-            (click)="signIn.showModal()">{{'AUTH.SIGN_IN' |
-            translate}}</a>
+            (click)="this.toggleForm('signIn')">
+            {{'AUTH.SIGN_IN' | translate}}</a>
+        </div>
+      </div>
+    </div> -->
+    <div class="row">
+      <div class="col-md-8 mx-auto text-center">
+        <!-- Show the sign-up form when 'displayedForm' is set to 'signUp' -->
+        <div *ngIf="displayedForm === 'signUp'">
+          <form (ngSubmit)="onSignUpSubmit(signUpForm)" #signUpForm="ngForm" method="post">
+            <!-- ... Your sign-up form content ... -->
+            <div class="{{themeService.isDarkTheme? 'text-white bg-dark' : ''}}">
+              <div class="form-group col-md-4 mx-auto">
+                <label class="label-style" for="newUserName">{{'USER.NAME' | translate}}</label>
+                <input type="text" id="newUserName" name="newUserName" [(ngModel)]="newUserName" required
+                  class="form-control">
+              </div>
+
+              <div class="form-group col-md-4 mx-auto">
+                <label class="label-style" for="newEmail">{{'USER.EMAIL' | translate}}</label>
+                <input type="email" id="newEmail" name="newEmail" [(ngModel)]="newEmail" required class="form-control">
+              </div>
+              <div class="form-group col-md-4 mx-auto">
+                <label class="label-style" for="newPassword">{{'USER.PASSWORD' | translate}}</label>
+                <input type="password" id="newPassword" name="newPassword" [(ngModel)]="newPassword" required
+                  class="form-control">
+              </div>
+              <br>
+              <button class="btn btn-primary btn-block {{themeService.isDarkTheme? 'bg-warning text-dark' : ''}}"
+                type="submit">{{'AUTH.SIGN_UP' |
+                translate}}</button>
+
+            </div>
+          </form>
         </div>
 
+        <!-- Show the sign-in form when 'displayedForm' is set to 'signIn' -->
+        <div *ngIf="displayedForm === 'signIn'">
+          <form (ngSubmit)="onSignInSubmit(signInForm)" #signInForm="ngForm" method="post">
+            <!-- ... Your sign-in form content ... -->
+            <div class="form-group col-md-4 mx-auto">
+              <label class="label-style" for="userName">{{'USER.NAME' | translate}}</label>
+              <input type="text" id="userName" name="userName" [(ngModel)]="userName" required class="form-control">
+            </div>
+            <div class="form-group col-md-4 mx-auto">
+              <label class="label-style" for="password">{{'USER.PASSWORD' | translate}}</label>
+              <input type="password" id="password" name="password" [(ngModel)]="password" required class="form-control">
+            </div>
+            <br>
+            <button class="btn btn-primary btn-block {{themeService.isDarkTheme? 'bg-warning text-dark' : ''}}"
+              type="submit">{{'AUTH.SIGN_IN' |
+              translate}}</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
 
+
+
+
+  <!--
   <dialog class="dialog-style {{themeService.isDarkTheme? 'text-white bg-dark' : ''}}" #signUp>
     <div class="modal-content">
       <div class="modal-header">
@@ -93,7 +169,7 @@
       </div>
     </div>
   </dialog>
-
+ -->
 
 </body>
 

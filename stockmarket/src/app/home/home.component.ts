@@ -27,6 +27,10 @@ export class HomeComponent {
   userName: string = '';
   password: string = '';
 
+  displayedForm: "signUp" | "signIn" = "signUp";
+  toggleForm(formType: "signUp" | "signIn") {
+    this.displayedForm = formType;
+  }
   constructor(
     private router: Router,
     private userService: UserService,

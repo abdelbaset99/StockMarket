@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ThemeService } from './theme.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -18,6 +19,10 @@ export class AppComponent {
 
   switchLang(lang: string) {
     this.translate.use(lang);
+  }
+
+  toggleLang(){
+    this.translate.use(this.translate.currentLang === 'ar_EG' ? 'en_US' : 'ar_EG');
   }
 
   toggleTheme() {
