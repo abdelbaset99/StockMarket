@@ -31,13 +31,14 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              "src\\favicon.ico",
-              "src\\assets"
+              "src/favicon.ico",
+              "src/assets"
             ],
             "styles": [
-              "D:\\EGID\\stockmarket\\src\\styles.css",
-              "D:\\EGID\\stockmarket\\src\\styles-dark.css",
-              "D:\\EGID\\stockmarket\\node_modules\\aos\\dist\\aos.css"
+              "src/styles.css",
+              "src/styles-dark.css",
+              "node_modules/animate.css/animate.min.css",
+              "node_modules/aos/dist/aos.css"
             ],
             "scripts": []
           },
@@ -56,13 +57,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
                 }
               ],
               "outputHashing": "all"
